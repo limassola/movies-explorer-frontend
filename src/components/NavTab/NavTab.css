@@ -1,0 +1,26 @@
+.navTab {
+    display: flex;
+    justify-content: space-around;
+    width: 310px;
+    margin: 0 auto 30px;
+}
+
+.navTab__item {
+    border-radius: 10px;
+    background: #303030;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 17px;
+    margin-right: 10px;
+}
+
+.navTab__item:last-child {
+   margin-right: 0px; 
+}
