@@ -1,5 +1,5 @@
 .portfolio {
-    padding-bottom: 125px;
+    padding-bottom: 162px;
 }
 
 .portfolio__container {
@@ -59,4 +59,23 @@
     line-height: 60px; /* 200% */
     letter-spacing: -1.2px;
     margin: 0;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+    .portfolio__container {
+        max-width: 668px;
+    }
+
+    .portfolio__link {
+        font-size: 28px;
+    }
+
+    .portfolio__title {
+        margin-bottom: 45px;
+    }
+
+    .portfolio {
+        padding-bottom: 130px;
+    }
 }

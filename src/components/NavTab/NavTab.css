@@ -24,3 +24,10 @@
 .navTab__item:last-child {
    margin-right: 0px; 
 }
+
+
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+    .navTab__item {
+        margin-right: 0;
+    }
+}

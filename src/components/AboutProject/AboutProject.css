@@ -17,13 +17,13 @@
 
 .aboutProject__header {
     border-bottom: 1px solid #DADADA;
-    margin-bottom: 70px;
+    margin-bottom: 54px;
 }
 
 .aboutProject__container {
     display: flex;
     text-align: left;
-    margin-bottom: 110px;
+    margin-bottom: 97px;
 }
 
 .aboutProject__subtitle {
@@ -38,7 +38,7 @@
 }
 
 .aboutProject__item {
-    width: 550px;
+    max-width: 550px;
     margin-right: 40px;
 }
 
@@ -108,4 +108,22 @@
     line-height: 17px;
     padding-top: 14px;
     margin: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+    .aboutProject {
+        max-width: 668px;
+    }
+
+    .aboutProject__text {
+        font-size: 12px;
+    }
+
+    .aboutProject__container {
+        margin-bottom: 76px;
+    }
+
+    .aboutProject__subtitle {
+        margin-bottom: 20px;
+    }
 }

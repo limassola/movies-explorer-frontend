@@ -1,5 +1,5 @@
 .aboutMe {
-    padding: 110px 0 100px 0;
+    padding: 115px 0 100px 0;
 }
 
 .aboutMe__container {
@@ -22,19 +22,19 @@
 
 .aboutMe__header {
     border-bottom: 1px solid #DADADA;
-    margin-bottom: 70px;
+    margin-bottom: 45px;
 }
 
 .aboutMe__main {
     display: flex;
     justify-content: space-between;
     text-align: left;
-    margin-top: 66px;
     align-items: center;
 }
 
 .aboutMe__profile {
     max-width: 600px;
+    margin-top: 20px;
 }
 
 .aboutMe__name {
@@ -48,6 +48,17 @@
     margin: 0 0 18px 0;
 }
 
+.aboutMe__subtitle {
+    color: #FFF;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0 0 20px 0 ;
+}
+
 .aboutMe__about {
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
@@ -56,7 +67,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 22px;
-    margin: 0 0 100px 0;
+    margin: 0 0 60px 0;
 }
 
 .aboutME__link {
@@ -79,4 +90,41 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+    .aboutMe {
+        padding: 93px 0 90px;
+    }
+
+    .aboutMe__image {
+        max-width: 256px;
+        max-height: 300px;
+        margin-top: 10px;
+    }
+
+    .aboutMe__container {
+        max-width: 668px;
+    }
+
+    .aboutMe__name {
+        font-size: 40px;
+        line-height: 40px; /* 100% */
+        letter-spacing: -1.6px;
+    }
+
+    .aboutMe__subtitle {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .aboutMe__about {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 32px;
+    }
+
+    .aboutMe__profile {
+        max-width: 364px;
+    }
 }
