@@ -65,3 +65,35 @@
         margin-right: 20px;
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .header {
+        max-width: 320px;
+        margin-bottom: 35px;
+    }
+
+    .header__logo {
+        margin-left: 14px;
+    }
+
+    .header__container {
+        margin-right: 0;
+        width: 132px;
+        justify-content:space-around;
+    }
+
+    .header__link {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .header__button {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .header__button {
+        width: 54px;
+        height: 26px;
+    }
+}

@@ -127,3 +127,64 @@
         margin-bottom: 20px;
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .aboutProject {
+        max-width: 284px;
+    }
+
+    .aboutProject__title {
+        font-size: 18px;
+        letter-spacing: -0.72px;
+        margin-bottom: 28px;
+    }
+    
+    .aboutProject__header {
+        margin-bottom: 46px;
+    }
+
+    .aboutProject__container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+    }
+
+    .aboutProject__subtitle {
+        font-size: 18px;
+        line-height: normal;
+        letter-spacing: -0.72px;
+        margin-bottom: 17px;
+    }
+
+    .aboutProject__item {
+        margin: 0;
+    }
+
+    .aboutProject__text {
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 42px;
+    }
+
+    .aboutProject__backend-part {
+        width: 36%;
+    }
+
+    .aboutProject__frontend-part {
+        width: 64%;
+    }
+
+    .aboutProject__backend-time {
+        font-size: 11px;
+        line-height: normal;
+    }
+
+    .aboutProject__frontend-time {
+        font-size: 11px;
+    }
+
+    .aboutProject__dev-part {
+        font-size: 11px;
+        padding-top: 11px;
+    }
+}
