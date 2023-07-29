@@ -19,6 +19,7 @@
     justify-content: center;
     padding: 10px 17px;
     margin-right: 10px;
+    text-decoration: none;
 }
 
 .navTab__item:last-child {
