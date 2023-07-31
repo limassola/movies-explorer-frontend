@@ -7,7 +7,8 @@
 .search__container {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
+    margin-top: 96px;
 }
 
 .search__input {
@@ -23,7 +24,7 @@
     line-height: 18px;
     padding: 16px 0 16px 20px;
     border: none; 
-    margin-right: 10px;
+    margin-right: 16px;
 }
 
 .search__button {
@@ -39,9 +40,9 @@
 
 .search__filter {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 37px;
 }
 
 .search__text {
@@ -51,6 +52,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
+    margin: 0;
 }
 
 .search__switch {

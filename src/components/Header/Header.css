@@ -63,13 +63,15 @@
     font-style: normal;
     font-weight: 500;
     line-height: 16px; /* 114.286% */
-    padding: 8px 20px;
+    padding: 0 10px 0 15px;
 }
 
 .header__items {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 212px;
+    margin-left: 63px;
 }
 
 .header__item {
