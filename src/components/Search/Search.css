@@ -69,3 +69,18 @@
 .search__switch_active {
     background-image: url(../../images/switch_active.svg);
 }
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .search__input {
+        max-width: 90%;
+        margin-right: 10px;
+    }
+
+    .search {
+        margin: 0 30px;
+    }
+
+    .search__container {
+        margin-bottom: 40px;
+    }
+}

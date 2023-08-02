@@ -8,6 +8,7 @@
     margin-bottom: 50px;
 }
 
+
 .header__container {
     display: flex;
     align-items: center;
@@ -64,6 +65,16 @@
     font-weight: 500;
     line-height: 16px; /* 114.286% */
     padding: 0 10px 0 15px;
+}
+
+.header__button_type_burger {
+    border: none;
+    background-image: url(../../images/burger__button.svg);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+    margin-right: 14px;
 }
 
 .header__items {
@@ -142,5 +153,21 @@
     .header__button {
         width: 54px;
         height: 26px;
+    }
+}
+
+/* Burger menu */
+
+@media screen and (min-width: 320px) and (max-width: 1279px) {
+    .header__button_type_account {
+        display: none;
+    }
+
+    .header__items {
+        display: none;
+    }
+
+    .header__button_type_burger {
+        display: block;
     }
 }
