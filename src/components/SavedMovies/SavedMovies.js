@@ -23,7 +23,7 @@ function SavedMovies() {
           <a className="header__button header__button_type_account">Аккаунт</a>
           <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
         </Header>
-        {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick}/> : null}
+        {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={true}/> : null}
         <Search/>
         <MoviesCardList isSavedPage={true}/>
         <Footer/>

@@ -39,11 +39,20 @@
     font-weight: 500;
     line-height: normal;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .burger-menu__item {
     list-style: none;
-    margin-bottom: 28px;
+    max-width: 300px;
+    margin: 0 auto 28px;
+    padding-bottom: 4px;
+}
+
+.burger-menu__item_active {
+    border-bottom: 2px solid #FFF;
 }
 
 .burger-menu__button-account {
