@@ -93,3 +93,22 @@
         margin: 0 4px 0 0;
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .movies-card {
+        width: 300px;
+    }
+
+    .movies-card__heading {
+        margin: 0;
+    }
+
+    .movies-card__title {
+        font-size: 12px;
+    }
+
+    .movies-card__time {
+        margin-right: 2px;
+        padding: 4px 7px;
+    }
+}

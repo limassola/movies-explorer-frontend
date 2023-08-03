@@ -41,3 +41,21 @@
         margin-bottom: 54px;
     }
 }
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .movies-card-list {
+        max-width: 300px;
+        margin-top: 51px;
+    }
+
+    .movies-card-list__container {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 35px;
+        margin-bottom: 60px;
+    }
+
+    .movies-card-list__button {
+        width: 240px;
+    }
+
+}

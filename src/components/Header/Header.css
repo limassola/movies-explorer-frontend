@@ -154,6 +154,12 @@
         width: 54px;
         height: 26px;
     }
+
+    .header__button_type_burger {
+        width: 33px;
+        height: 35px;
+        margin-right: 17px;
+    }
 }
 
 /* Burger menu */
