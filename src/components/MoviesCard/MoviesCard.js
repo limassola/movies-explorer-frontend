@@ -2,7 +2,7 @@ import React from "react";
 import image from '../../images/movie__image.png'
 import './MoviesCard.css';
 
-function MoviesCard() {
+function MoviesCard({ isSavedPage }) {
     const [isSaved, setIsSaved] = React.useState(false)
     const handleSaveClick = () => {
         setIsSaved(!isSaved)
@@ -11,7 +11,7 @@ function MoviesCard() {
     return(
         <div className="movies-card">
             <img className="movies-card__image" src={image} alt="обложка фильма"/>
-            {isSaved ? (<button onClick={handleSaveClick} className="movies-card__button movies-card__button_checkmark"></button>) : (<button onClick={handleSaveClick} className="movies-card__button movies-card__button-save">Сохранить</button>)}
+            {isSavedPage ? (<button className="movies-card__button movies-card__button_delete"></button>) : (<button onClick={handleSaveClick} className={`movies-card__button ${isSaved ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSaved ? null : "Сохранить"}</button>)}
             <div className="movies-card__heading">
                 <h3 className="movies-card__title">Пи Джей Харви: A dog called money</h3>
                 <p className="movies-card__time">1ч 17м</p>
