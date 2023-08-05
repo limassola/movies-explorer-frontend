@@ -1,6 +1,7 @@
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
@@ -12,7 +13,8 @@ function App() {
       {/* <Movies/> */}
       {/* <SavedMovies/> */}
       {/* <Register/> */}
-      <Login/>
+      {/* <Login/> */}
+      <Profile/>
     </div>
   );
 }
