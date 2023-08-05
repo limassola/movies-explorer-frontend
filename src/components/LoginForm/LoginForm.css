@@ -1,0 +1,109 @@
+.login-form {
+    width: 396px;
+    margin: 70px auto 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.login-form__logo {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 40px;
+}
+
+.login-form__title {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin:  0 0 40px;
+}
+
+.login-form__label {
+    display: flex;
+    flex-direction: column;
+    color: #8B8B8B;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.login-form__input {
+    border-radius: 8px;
+    background: #2F2F2F;
+    border: none;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 15px;
+    margin: 10px 0 20px;
+}
+
+.login-form__error {
+    color: #EE3465;
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    display: block;
+}
+
+.login-form__button {
+    border-radius: 3px;
+    background: #4285F4;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 15px;
+    margin-top: 157px;
+    transition: all 0.3s;
+}
+
+.login-form__button:hover {
+    opacity: 0.8;
+    background: #3456F3;
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+    .login-form {
+        margin-top: 232px;
+    }
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .login-form{
+        width: 260px;
+        margin-top: 56px;
+    }
+
+    .login-form__logo {
+        margin: 0 auto 50px;
+    }
+
+    .login-form__title {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .login-form__button {
+        margin-top: 247px;
+        font-size: 12px;
+    }
+}

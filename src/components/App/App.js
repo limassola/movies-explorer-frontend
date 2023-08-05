@@ -1,3 +1,4 @@
+import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Register from '../Register/Register';
@@ -10,7 +11,8 @@ function App() {
       {/* <Main/> */}
       {/* <Movies/> */}
       {/* <SavedMovies/> */}
-      <Register/>
+      {/* <Register/> */}
+      <Login/>
     </div>
   );
 }
