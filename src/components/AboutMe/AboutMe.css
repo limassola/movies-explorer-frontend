@@ -1,5 +1,5 @@
 .aboutMe {
-    padding: 115px 0 100px 0;
+    padding: 111px 0 100px 0;
 }
 
 .aboutMe__container {
@@ -22,7 +22,7 @@
 
 .aboutMe__header {
     border-bottom: 1px solid #DADADA;
-    margin-bottom: 45px;
+    margin-bottom: 33px;
 }
 
 .aboutMe__main {
@@ -34,7 +34,7 @@
 
 .aboutMe__profile {
     max-width: 600px;
-    margin-top: 20px;
+    margin-top: 33px;
 }
 
 .aboutMe__name {
@@ -56,7 +56,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    margin: 0 0 20px 0 ;
+    margin: 0 0 23px 0 ;
 }
 
 .aboutMe__about {
@@ -67,7 +67,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 22px;
-    margin: 0 0 60px 0;
+    margin: 0 0 100px 0;
 }
 
 .aboutME__link {
@@ -90,6 +90,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-top: 33px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
