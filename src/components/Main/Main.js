@@ -1,3 +1,5 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import AboutMe from '../AboutMe/AboutMe';
 import AboutProject from '../AboutProject/AboutProject';
 import Footer from '../Footer/Footer';
@@ -13,8 +15,8 @@ function Main() {
     <div className="Main">
       <Header>
       <div className='header__container'>
-        <a className='header__link'>Регистрация</a>
-        <a className='header__button'>Войти</a>
+        <Link to="/signup" className='header__link'>Регистрация</Link>
+        <Link to="/signin" className='header__button'>Войти</Link>
       </div>
       </Header>
       <Promo/>

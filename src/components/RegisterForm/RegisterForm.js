@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import './RegisterForm.css';
 
@@ -38,7 +39,9 @@ function RegisterForm() {
 
   return (
     <form className="register-form">
-        <img src={logo} alt='Логотип' className='register-form__logo'/>
+        <Link to='/'>
+          <img src={logo} alt='Логотип' className='register-form__logo'/>
+        </Link>
         <h2 className="register-form__title">Добро пожаловать!</h2>
         <label className="register-form__label">
             Имя

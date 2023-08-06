@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import './LoginForm.css';
 
@@ -30,7 +31,9 @@ function LoginForm() {
 
   return (
     <form className="login-form">
-        <img src={logo} alt='Логотип' className='login-form__logo'/>
+        <Link to='/'>
+          <img src={logo} alt='Логотип' className='login-form__logo'/>
+        </Link>
         <h2 className="login-form__title">Рады видеть!</h2>
         <label className="login-form__label">
             E-mail

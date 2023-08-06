@@ -1,5 +1,6 @@
 // Register.js
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import RegisterForm from "../RegisterForm/RegisterForm";
 import './Register.css';
 
@@ -9,7 +10,7 @@ function Register() {
       <RegisterForm />
       <div className="register__container">
         <p className="register__text">Уже зарегистрированы?</p>
-        <a className="register__link">Войти</a>
+        <Link to="/signin" className="register__link">Войти</Link>
       </div>
     </div>
   );
