@@ -26,7 +26,7 @@ function Movies() {
         </Header>
         {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isMoviesPage={true}/> : null}
         <Search/>
-        <MoviesCardList/>
+        <MoviesCardList isSavedPage={false}/>
         <Footer/>
       </div>
     );

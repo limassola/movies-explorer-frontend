@@ -29,7 +29,7 @@
 }
 
 .burger-menu__items {
-    margin: 160px auto 500px;
+    margin: 160px auto 596px;
     color: #FFF;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
@@ -47,7 +47,7 @@
 .burger-menu__item {
     list-style: none;
     max-width: 300px;
-    margin: 0 auto 28px;
+    margin: 0 auto 25px;
     padding-bottom: 4px;
     color: #FFF;
     text-decoration: none;
