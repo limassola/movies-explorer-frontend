@@ -37,7 +37,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
         </div>
         <div className="profile__container">
             <button className="profile__button profile__button_type_popup" onClick={onEditProfile}>Редактировать</button>
-            <button className="profile__button profile__button_type_signout" onClick={onSignOut}>Выйти из аккаунта</button>
+            <Link to="/" className="profile__button profile__button_type_signout" onClick={onSignOut}>Выйти из аккаунта</Link>
         </div>
           
         {/* Открывает попап редактирования данных */}

@@ -14,7 +14,7 @@ function AboutMe() {
             <p className='aboutMe__about'>
             Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена 
 и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
-            <a className='aboutME__link' href='https://github.com/limassola'>Github</a>
+            <a className='aboutME__link' target="_blank" rel="noreferrer" href='https://github.com/limassola'>Github</a>
           </div>
           <div className='aboutMe__image'></div>
         </div>

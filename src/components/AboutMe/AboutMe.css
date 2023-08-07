@@ -145,8 +145,8 @@
     }
 
     .aboutMe {
-        padding-top: 41px;
-        padding-bottom: 45px;
+        padding-top: 38px;
+        padding-bottom: 68px;
     }
 
     .aboutMe__title {
@@ -174,12 +174,13 @@
 
     .aboutMe__profile {
         max-width: 292px;
+        margin-top: 19px;
     }
 
     .aboutMe__about {
         font-size: 11px;
         line-height: 16px;
-        margin-bottom: 15px;
+        margin-bottom: 37px;
     }
 
     .aboutMe__subtitle {
