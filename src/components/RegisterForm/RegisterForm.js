@@ -39,7 +39,7 @@ function RegisterForm() {
 
   return (
     <form className="register-form">
-        <Link to='/'>
+        <Link className="rigister-form__link" to='/'>
           <img src={logo} alt='Логотип' className='register-form__logo'/>
         </Link>
         <h2 className="register-form__title">Добро пожаловать!</h2>
