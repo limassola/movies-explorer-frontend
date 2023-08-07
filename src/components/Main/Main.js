@@ -15,10 +15,10 @@ function Main() {
     <div className="Main">
       <header>
         <Header>
-          <div className='header__container'>
+          <nav className='header__container'>
             <Link to="/signup" className='header__link'>Регистрация</Link>
             <Link to="/signin" className='header__button'>Войти</Link>
-          </div>
+          </nav>
         </Header>
       </header>
       <main>

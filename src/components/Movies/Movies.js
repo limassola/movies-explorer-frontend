@@ -18,10 +18,10 @@ function Movies() {
       <div className="Movies">
         <header>
           <Header>
-            <div className='header__items'>
+            <nav className='header__items'>
               <Link to="/movies" className='header__item header__item_active'>Фильмы</Link>
               <Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link>
-            </div>
+            </nav>
             <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
             <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
           </Header>
