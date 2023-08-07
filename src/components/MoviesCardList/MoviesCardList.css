@@ -14,10 +14,16 @@
     column-gap: 30px;
     row-gap: 54px;
     margin-bottom: 71px;
+    padding: 0;
+}
+
+.movies-card-list__item {
+    list-style: none;
 }
 
 .movies-card-list__container_type_save {
     margin-bottom: 27px;
+    grid-template-rows: repeat(2, 1fr);
 }
 
 .movies-card-list__button {
