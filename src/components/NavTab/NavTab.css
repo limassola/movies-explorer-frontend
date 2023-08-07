@@ -1,8 +1,12 @@
 .navTab {
-    display: flex;
-    justify-content: space-around;
     width: 310px;
     margin: 0 auto 30px;
+}
+
+.navTab__items {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
 }
 
 .navTab__item {
