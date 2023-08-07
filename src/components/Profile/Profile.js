@@ -23,7 +23,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
               </ul>
             </nav>
             <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
-            <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
+            <button type='button' onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
         </Header>
     </header>
     <main>
@@ -44,7 +44,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
                     </div>
                 </div>
                 <div className="profile__container">
-                    <button className="profile__button profile__button_type_popup" onClick={onEditProfile}>Редактировать</button>
+                    <button type='button' className="profile__button profile__button_type_popup" onClick={onEditProfile}>Редактировать</button>
                     <Link to="/" className="profile__button profile__button_type_signout" onClick={onSignOut}>Выйти из аккаунта</Link>
                 </div>
                 

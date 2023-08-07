@@ -25,7 +25,7 @@ function SavedMovies() {
               </ul>
             </nav>
             <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
-            <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
+            <button type='button' onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
           </Header>
         </header>
         <main>

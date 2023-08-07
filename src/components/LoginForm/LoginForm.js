@@ -55,7 +55,7 @@ function LoginForm() {
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>
-        <button className="login-form__button" onClick={handleLogin}>Войти</button>
+        <button type="button" className="login-form__button" onClick={handleLogin}>Войти</button>
     </form>
   );
 }

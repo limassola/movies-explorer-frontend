@@ -73,7 +73,7 @@ function RegisterForm() {
             />
             {passwordError && <p className="register-form__error">{passwordError}</p>}
         </label>
-        <button className="register-form__button" onClick={handleRegister}>Зарегистрироваться</button>
+        <button type="submit" className="register-form__button" onClick={handleRegister}>Зарегистрироваться</button>
     </form>
   );
 }

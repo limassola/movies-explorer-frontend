@@ -11,16 +11,16 @@ function Search() {
         setActive(!isActive)
     }
     return (
-      <div className="search">
+      <form className="search">
         <div className='search__container'>
             <input className='search__input' type='text' placeholder='Фильм'/>
-            <button className='search__button'/>
+            <button type='submit' className='search__button'/>
         </div>
         <div className='search__filter'>
-            <button className={switchButtonClassName} onClick={switchAction}></button>
+            <button type='button' className={switchButtonClassName} onClick={switchAction}></button>
             <p className='search__text'>Короткометражки</p>
         </div>
-      </div>
+      </form>
     );
   }
   

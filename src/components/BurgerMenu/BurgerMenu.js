@@ -6,7 +6,7 @@ function BurgerMenu({isMenuOpen, closeMenu, isMoviesPage, isSavedPage}) {
   return (
     <div className='burger-menu'>
         <nav className='burger-menu__container'>
-            <button onClick={closeMenu} className='burger-menu__button-close'></button>
+            <button type='button' onClick={closeMenu} className='burger-menu__button-close'></button>
             <ul className='burger-menu__items'>
                 <li className='burger-menu__item'><Link to='/' className='burger-menu__link'>Главная</Link></li>
                 <li className='burger-menu__item'><Link to='/movies' className={`burger-menu__link ${isMoviesPage && 'burger-menu__link_active'}`}>Фильмы</Link></li>
