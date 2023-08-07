@@ -7,9 +7,16 @@
     display: flex;
     justify-content: space-around;
     padding: 0;
+    margin: 0;
 }
 
 .navTab__item {
+    list-style: none;
+    width: 96px;
+    height: 36px;
+}
+
+.navTab__link {
     border-radius: 10px;
     background: #303030;
     color: #FFF;
@@ -21,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 17px;
+    padding: 10px 10px;
     margin-right: 10px;
     text-decoration: none;
 }
@@ -42,9 +49,9 @@
         max-width: 258px;
     }
 
-    .navTab__item {
+    .navTab__link {
         font-size: 10px;
         line-height: 16px;
-        padding: 5px 14px; 
+        padding: 5px 10px; 
     }
 }

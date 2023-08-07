@@ -42,7 +42,7 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .promo {
         min-width: 292px;
-        margin: 0 14px 58px;
+        margin: 0 14px 45px;
     }
 
     .promo__title {
