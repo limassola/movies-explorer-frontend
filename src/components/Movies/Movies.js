@@ -18,9 +18,11 @@ function Movies() {
       <div className="Movies">
         <header>
           <Header>
-            <nav className='header__items'>
-              <Link to="/movies" className='header__item header__item_active'>Фильмы</Link>
-              <Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link>
+            <nav className='header__nav'>
+              <ul className='header__items'>
+                <li className='header__list-item'><Link to="/movies" className='header__item header__item_active'>Фильмы</Link></li>
+                <li className='header__list-item'><Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link></li>
+              </ul>
             </nav>
             <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
             <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>

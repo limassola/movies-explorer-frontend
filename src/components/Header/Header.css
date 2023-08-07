@@ -83,7 +83,12 @@
     justify-content: space-between;
     align-items: center;
     min-width: 212px;
-    margin-left: 63px;
+    margin: 7px 0 0 63px;
+    padding: 0;
+}
+
+.header__list-item {
+    list-style: none;
 }
 
 .header__item {
