@@ -8,9 +8,9 @@ function BurgerMenu({isMenuOpen, closeMenu, isMoviesPage, isSavedPage}) {
         <div className='burger-menu__container'>
             <button onClick={closeMenu} className='burger-menu__button-close'></button>
             <ul className='burger-menu__items'>
-                <Link to='/' className='burger-menu__item'>Главная</Link>
-                <Link to='/movies' className={`burger-menu__item ${isMoviesPage && 'burger-menu__item_active'}`}>Фильмы</Link>
-                <Link to='/saved-movies' className={`burger-menu__item ${isSavedPage && 'burger-menu__item_active'}`}>Сохранённые фильмы</Link>
+                <li className='burger-menu__item'><Link to='/' className='burger-menu__link'>Главная</Link></li>
+                <li className='burger-menu__item'><Link to='/movies' className={`burger-menu__link ${isMoviesPage && 'burger-menu__link_active'}`}>Фильмы</Link></li>
+                <li className='burger-menu__item'><Link to='/saved-movies' className={`burger-menu__link ${isSavedPage && 'burger-menu__link_active'}`}>Сохранённые фильмы</Link></li>
             </ul>
             <Link to='/profile' className='burger-menu__button-account'>Аккаунт</Link>
         </div>

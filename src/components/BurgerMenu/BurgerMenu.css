@@ -49,11 +49,15 @@
     max-width: 300px;
     margin: 0 auto 25px;
     padding-bottom: 4px;
-    color: #FFF;
-    text-decoration: none;
 }
 
-.burger-menu__item_active {
+.burger-menu__link {
+    color: #FFF;
+    text-decoration: none;
+    padding: 7px; 
+}
+
+.burger-menu__link_active {
     border-bottom: 2px solid #FFF;
 }
 

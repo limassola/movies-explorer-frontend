@@ -13,18 +13,34 @@ import './Main.css';
 function Main() {
   return (
     <div className="Main">
-      <Header>
-      <div className='header__container'>
-        <Link to="/signup" className='header__link'>Регистрация</Link>
-        <Link to="/signin" className='header__button'>Войти</Link>
-      </div>
-      </Header>
-      <Promo/>
-      <AboutProject/>
-      <Techs/>
-      <AboutMe/>
-      <Portfolio/>
-      <Footer/>
+      <header>
+        <Header>
+          <div className='header__container'>
+            <Link to="/signup" className='header__link'>Регистрация</Link>
+            <Link to="/signin" className='header__button'>Войти</Link>
+          </div>
+        </Header>
+      </header>
+      <main>
+        <section>
+          <Promo/>
+        </section>
+        <section>
+          <AboutProject/>
+        </section>
+        <section>
+          <Techs/>
+        </section>
+        <section>
+          <AboutMe/>
+        </section>
+        <section>
+          <Portfolio/>
+        </section>
+      </main>
+      <footer>
+        <Footer/>
+      </footer>
     </div>
   );
 }
