@@ -14,35 +14,43 @@ function Profile({ user, onEditProfile, onSignOut }) {
     };
   return (
     <>
-    <Header>
-          <div className='header__items'>
-            <Link to="/movies" className='header__item'>Фильмы</Link>
-            <Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link>
-          </div>
-          <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
-          <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
-    </Header>
-    {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
-    <div className="profile">
-        <h2 className="profile__title">Привет, Виталий!</h2>
-        <div className="profile__info">
-            <div className="profile__item">
-                <p className="profile__text">Имя</p>
-                <p className="profile__user-info">Виталий</p>
+    <header>
+        <Header>
+            <div className='header__items'>
+                <Link to="/movies" className='header__item'>Фильмы</Link>
+                <Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link>
             </div>
-            <div className="profile__item">
-                <p className="profile__text">E-mail</p>
-                <p className="profile__user-info">pochta@yandex.ru</p>
+            <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
+            <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
+        </Header>
+    </header>
+    <main>
+        <section>
+            {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
+        </section>
+        <section>
+            <div className="profile">
+                <h2 className="profile__title">Привет, Виталий!</h2>
+                <div className="profile__info">
+                    <div className="profile__item">
+                        <p className="profile__text">Имя</p>
+                        <p className="profile__user-info">Виталий</p>
+                    </div>
+                    <div className="profile__item">
+                        <p className="profile__text">E-mail</p>
+                        <p className="profile__user-info">pochta@yandex.ru</p>
+                    </div>
+                </div>
+                <div className="profile__container">
+                    <button className="profile__button profile__button_type_popup" onClick={onEditProfile}>Редактировать</button>
+                    <Link to="/" className="profile__button profile__button_type_signout" onClick={onSignOut}>Выйти из аккаунта</Link>
+                </div>
+                
+                {/* Открывает попап редактирования данных */}
+                {/* <Popup /> */}
             </div>
-        </div>
-        <div className="profile__container">
-            <button className="profile__button profile__button_type_popup" onClick={onEditProfile}>Редактировать</button>
-            <Link to="/" className="profile__button profile__button_type_signout" onClick={onSignOut}>Выйти из аккаунта</Link>
-        </div>
-          
-        {/* Открывает попап редактирования данных */}
-        {/* <Popup /> */}
-    </div>
+        </section>
+    </main>
     </>
   );
 }

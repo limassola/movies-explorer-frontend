@@ -5,13 +5,17 @@ import './Login.css';
 
 function Login() {
   return (
-    <div className="login">
-      <LoginForm />
-      <div className="login__container">
-        <p className="login__text">Ещё не зарегистрированы?</p>
-        <Link to="/signup" className="login__link">Регистрация</Link>
-      </div>
-    </div>
+    <main>
+      <section>
+        <div className="login">
+          <LoginForm />
+          <div className="login__container">
+            <p className="login__text">Ещё не зарегистрированы?</p>
+            <Link to="/signup" className="login__link">Регистрация</Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
