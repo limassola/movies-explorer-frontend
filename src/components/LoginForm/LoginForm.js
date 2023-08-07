@@ -34,7 +34,7 @@ function LoginForm() {
         <Link className="login-form__link" to='/'>
           <img src={logo} alt='Логотип' className='login-form__logo'/>
         </Link>
-        <h2 className="login-form__title">Рады видеть!</h2>
+        <h1 className="login-form__title">Рады видеть!</h1>
         <label className="login-form__label">
             E-mail
             <input

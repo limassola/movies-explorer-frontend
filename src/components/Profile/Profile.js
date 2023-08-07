@@ -16,10 +16,12 @@ function Profile({ user, onEditProfile, onSignOut }) {
     <>
     <header>
         <Header>
-            <div className='header__items'>
-                <Link to="/movies" className='header__item'>Фильмы</Link>
-                <Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link>
-            </div>
+            <nav className='header__nav'>
+              <ul className='header__items'>
+                    <li className='header__list-item'><Link to="/movies" className='header__item header__item_active'>Фильмы</Link></li>
+                    <li className='header__list-item'><Link to="/saved-movies" className='header__item'>Сохранённые фильмы</Link></li>
+              </ul>
+            </nav>
             <Link to="/profile" className="header__button header__button_type_account">Аккаунт</Link>
             <button onClick={handleBurgerClick} className="header__button header__button_type_burger"></button>
         </Header>
@@ -30,7 +32,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
         </section>
         <section>
             <div className="profile">
-                <h2 className="profile__title">Привет, Виталий!</h2>
+                <h1 className="profile__title">Привет, Виталий!</h1>
                 <div className="profile__info">
                     <div className="profile__item">
                         <p className="profile__text">Имя</p>
