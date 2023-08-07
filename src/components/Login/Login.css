@@ -47,4 +47,8 @@
     .login__text {
         font-size: 12px;
     }
+
+    .login {
+        width: 320px;
+    }
 }

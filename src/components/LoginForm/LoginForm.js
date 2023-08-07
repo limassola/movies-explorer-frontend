@@ -31,7 +31,7 @@ function LoginForm() {
 
   return (
     <form className="login-form">
-        <Link to='/'>
+        <Link className="login-form__link" to='/'>
           <img src={logo} alt='Логотип' className='login-form__logo'/>
         </Link>
         <h2 className="login-form__title">Рады видеть!</h2>
