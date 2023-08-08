@@ -42,6 +42,8 @@ function LoginForm() {
             className="login-form__input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Введите Email"
+            required
             />
             {emailError && <p className="login-form__error">{emailError}</p>}
         </label>
@@ -52,6 +54,9 @@ function LoginForm() {
             className="login-form__input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Введите пароль"
+            required
+            minLength="6"
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>

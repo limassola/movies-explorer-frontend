@@ -60,7 +60,13 @@
     font-weight: 400;
     line-height: normal;
     text-decoration: none;
+    transition: all 0.3s;
 }
+
+.footer__link:hover {
+    opacity: 0.6;
+}
+
 
 .footer__item:last-child {
     margin: 0;

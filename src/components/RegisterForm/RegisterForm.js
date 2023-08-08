@@ -50,6 +50,10 @@ function RegisterForm() {
             className="register-form__input"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Введите имя"
+            minLength="2"
+            maxLength="30"
+            required
             />
             {nameError && <p className="register-form__error">{nameError}</p>}
         </label>
@@ -60,6 +64,8 @@ function RegisterForm() {
             className="register-form__input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Введите Email"
+            required
             />
             {emailError && <p className="register-form__error">{emailError}</p>}
         </label>
@@ -70,6 +76,9 @@ function RegisterForm() {
             className="register-form__input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="Введите пароль"
+            required
+            minLength="6"
             />
             {passwordError && <p className="register-form__error">{passwordError}</p>}
         </label>

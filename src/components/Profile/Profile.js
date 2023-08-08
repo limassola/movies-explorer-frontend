@@ -53,6 +53,9 @@ function Profile({ user, onEditProfile, onSignOut }) {
                 type="text"
                 value={name}
                 onChange={handleNameChange}
+                placeholder='Введите имя'
+                minLength="2"
+                maxLength="30"
               />
             </div>
             <div className="profile__item">
@@ -62,12 +65,13 @@ function Profile({ user, onEditProfile, onSignOut }) {
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
+                placeholder='Введите Email'
               />
             </div>
           </div>
           <div className="profile__container">
             <button
-              type="submit"
+              type="button"
               className="profile__button profile__button_type_popup"
               onClick={onEditProfile}
             >

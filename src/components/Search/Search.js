@@ -13,7 +13,12 @@ function Search() {
     return (
       <form className="search">
         <div className='search__container'>
-            <input className='search__input' type='text' placeholder='Фильм'/>
+            <input 
+            className='search__input' 
+            type='text' 
+            placeholder='Фильм' 
+            required
+            />
             <button type='submit' className='search__button'/>
         </div>
         <div className='search__filter'>

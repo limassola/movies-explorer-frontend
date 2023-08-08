@@ -51,6 +51,11 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    transition: all 0.3s;
+}
+
+.portfolio__link:hover {
+    opacity: 0.6;
 }
 
 .portfolio__string {
