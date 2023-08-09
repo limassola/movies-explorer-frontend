@@ -15,7 +15,7 @@ function SavedMovies() {
   };
 
     return (
-      <div className="SavedMovies">
+      <div className="saved-movies">
         <header>
           <Header>
             <nav className='header__nav'>

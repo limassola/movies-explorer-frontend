@@ -12,7 +12,7 @@ import './Main.css';
 
 function Main() {
   return (
-    <div className="Main">
+    <div className="main">
       <header>
         <Header>
           <nav className='header__container'>
