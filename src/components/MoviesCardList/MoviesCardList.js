@@ -18,15 +18,15 @@ function MoviesCardList({isSavedPage}) {
         <MoviesCard isSavedPage={isSavedPage}/>,
     ];
 
-    const [visibleCards, setVisibleCards] = useState(12)
+    const [visibleCards, setVisibleCards] = useState(isSavedPage ? 3 : 12);
 
     const handleResize = () => {
         if(window.innerWidth >= 1280) {
-            setVisibleCards(12);
+            setVisibleCards(isSavedPage ? 3 : 12);
         } else if (window.innerWidth >= 768) {
-            setVisibleCards(8);
+            setVisibleCards(isSavedPage ? 3 : 8);
         } else if (window.innerWidth >= 320) {
-            setVisibleCards(5);
+            setVisibleCards(isSavedPage ? 2 : 5);
         }
     };
 
