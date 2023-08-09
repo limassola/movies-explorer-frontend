@@ -69,6 +69,7 @@
     }
 }
 
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
     .movies-card-list {
         max-width: 300px;

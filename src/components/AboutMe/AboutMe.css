@@ -139,7 +139,61 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
+@media screen and (min-width: 550px) and (max-width: 767px) {
+    .aboutMe__main {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .aboutMe__container {
+        max-width: 510px;
+    }
+
+    .aboutMe {
+        padding-top: 38px;
+        padding-bottom: 68px;
+    }
+
+    .aboutMe__title {
+        margin-bottom: 28px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .aboutMe__image {
+        width: 292px;
+        height: 352px;
+        flex-shrink: 0;
+        margin: 0 14px 10px;
+    }
+
+    .aboutMe__header {
+        margin-bottom: 60px;
+    }
+
+    .aboutMe__name {
+        font-size: 30px;
+        letter-spacing: -1.2px;
+        margin-bottom: 8px;
+    }
+
+    
+
+    .aboutMe__about {
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 37px;
+    }
+
+    .aboutMe__subtitle {
+        font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 549px) {
     .aboutMe__main {
         display: flex;
         flex-direction: column-reverse;
