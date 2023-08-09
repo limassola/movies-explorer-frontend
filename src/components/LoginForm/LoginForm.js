@@ -57,6 +57,7 @@ function LoginForm() {
             placeholder="Введите пароль"
             required
             minLength="6"
+            maxLength="20"
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>

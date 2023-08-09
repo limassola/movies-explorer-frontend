@@ -79,6 +79,7 @@ function RegisterForm() {
             placeholder="Введите пароль"
             required
             minLength="6"
+            maxLength="20"
             />
             {passwordError && <p className="form__error">{passwordError}</p>}
         </label>
