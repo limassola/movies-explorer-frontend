@@ -38,16 +38,16 @@ function RegisterForm() {
   };
 
   return (
-    <form className="register-form">
-        <Link className="rigister-form__link" to='/'>
-          <img src={logo} alt='Логотип' className='register-form__logo'/>
+    <form className="form">
+        <Link className="form__link" to='/'>
+          <img src={logo} alt='Логотип' className='form__logo'/>
         </Link>
-        <h1 className="register-form__title">Добро пожаловать!</h1>
-        <label className="register-form__label">
+        <h1 className="form__title">Добро пожаловать!</h1>
+        <label className="form__label">
             Имя
             <input
             type="text"
-            className="register-form__input"
+            className="form__input"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Введите имя"
@@ -55,34 +55,34 @@ function RegisterForm() {
             maxLength="30"
             required
             />
-            {nameError && <p className="register-form__error">{nameError}</p>}
+            {nameError && <p className="form__error">{nameError}</p>}
         </label>
-        <label className="register-form__label">
+        <label className="form__label">
             E-mail
             <input
             type="email"
-            className="register-form__input"
+            className="form__input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Введите Email"
             required
             />
-            {emailError && <p className="register-form__error">{emailError}</p>}
+            {emailError && <p className="form__error">{emailError}</p>}
         </label>
-        <label className="register-form__label">
+        <label className="form__label">
             Пароль
             <input
             type="password"
-            className="register-form__input"
+            className="form__input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Введите пароль"
             required
             minLength="6"
             />
-            {passwordError && <p className="register-form__error">{passwordError}</p>}
+            {passwordError && <p className="form__error">{passwordError}</p>}
         </label>
-        <button type="submit" className="register-form__button" onClick={handleRegister}>Зарегистрироваться</button>
+        <button type="submit" className="form__button" onClick={handleRegister}>Зарегистрироваться</button>
     </form>
   );
 }

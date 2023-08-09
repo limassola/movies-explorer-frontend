@@ -38,9 +38,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
         </Header>
     </header>
     <main>
-        <section>
-            {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
-        </section>
+        {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
         <section>
             <div className="profile">
                 <h1 className="profile__title">Привет, Виталий!</h1>

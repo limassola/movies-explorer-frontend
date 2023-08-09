@@ -1,4 +1,4 @@
-.register-form {
+.form {
     width: 396px;
     margin: 70px auto 0;
     display: flex;
@@ -6,22 +6,22 @@
     text-align: left;
 }
 
-.rigister-form__link {
+.form__link {
     display: flex; 
 }
 
-.register-form__logo {
+.form__logo {
     width: 38px;
     height: 38px;
     margin-bottom: 40px;
     transition: all 0.3s;
 }
 
-.register-form__logo:hover {
+.form__logo:hover {
     opacity: 0.8;
 }
 
-.register-form__title {
+.form__title {
     color: #FFF;
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 24px;
@@ -31,7 +31,7 @@
     margin:  0 0 40px;
 }
 
-.register-form__label {
+.form__label {
     display: flex;
     flex-direction: column;
     color: #8B8B8B;
@@ -42,7 +42,7 @@
     line-height: normal;
 }
 
-.register-form__input {
+.form__input {
     border-radius: 8px;
     background: #2F2F2F;
     border: none;
@@ -56,11 +56,11 @@
     margin: 10px 0 20px;
 }
 
-.register-form__input:focus {
+.form__input:focus {
     outline: none;
 }
 
-.register-form__error {
+.form__error {
     color: #EE3465;
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-size: 10px;
@@ -71,7 +71,7 @@
     display: block;
 }
 
-.register-form__button {
+.form__button {
     border-radius: 3px;
     background: #4285F4;
     border: none;
@@ -88,35 +88,35 @@
     cursor: pointer;
 }
 
-.register-form__button:hover {
+.form__button:hover {
     opacity: 0.8;
     background: #3456F3;
 }
 
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
-    .register-form {
+    .form {
         margin-top: 232px;
     }
 }
 
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
-    .register-form {
+    .form {
         width: 260px;
         margin-top: 56px;
     }
 
-    .register-form__logo {
+    .form__logo {
         margin: 0 auto 50px;
     }
 
-    .register-form__title {
+    .form__title {
         text-align: center;
         margin-bottom: 80px;
     }
 
-    .register-form__button {
+    .form__button {
         margin-top: 159px;
         font-size: 12px;
     }

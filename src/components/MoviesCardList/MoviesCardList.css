@@ -76,6 +76,7 @@
 
     .movies-card-list__container {
         grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
         row-gap: 35px;
         margin-bottom: 60px;
     }

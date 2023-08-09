@@ -8,7 +8,9 @@ function MoviesCardList({isSavedPage}) {
             <ul className={`movies-card-list__container ${isSavedPage && "movies-card-list__container_type_save"}`}>
                 <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
                 <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
-
+                <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
+                <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
+                <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
             </ul>
             {isSavedPage ? null : <button className="movies-card-list__button">Ещё</button>}
         </div>

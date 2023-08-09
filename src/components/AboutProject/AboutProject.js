@@ -22,7 +22,7 @@ function AboutProject() {
           <p className='aboutProject__dev-part'>Back-end</p>
         </div>
         <div className='aboutProject__frontend-part'>
-          <div className='aboutProject__frontend-time'>4 недели</div>
+          <p className='aboutProject__frontend-time'>4 недели</p>
           <p className='aboutProject__dev-part'>Front-end</p>
         </div>
       </div>
