@@ -55,6 +55,11 @@
     align-items: flex-start;
     justify-content: center;
     margin-bottom: 37px;
+    transition: all 0.3s;
+}
+
+.search__filter:hover {
+    opacity: 0.7;
 }
 
 .search__text {
