@@ -58,7 +58,7 @@
 }
 
 .login-form__input:focus {
-    outline: none;
+    outline: 1px solid #424242;
 }
 
 .login-form__error {
