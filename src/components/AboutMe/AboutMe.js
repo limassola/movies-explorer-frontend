@@ -4,9 +4,7 @@ function AboutMe() {
   return (
     <div className="aboutMe" id='aboutMe'>
       <div className='aboutMe__container'>
-        <div className='aboutMe__header'>
-          <h2 className='aboutMe__title'>Студент</h2>
-        </div>
+        <h2 className='aboutMe__title'>Студент</h2>
         <div className='aboutMe__main'>
           <div className='aboutMe__profile'>
             <h2 className='aboutMe__name'>Богдан</h2>

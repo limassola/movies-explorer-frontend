@@ -3,9 +3,7 @@ import './AboutProject.css';
 function AboutProject() {
   return (
     <div className="aboutProject" id='aboutProject'>
-      <div className='aboutProject__header'>
-        <h2 className='aboutProject__title'>О проекте</h2>
-      </div>
+      <h2 className='aboutProject__title'>О проекте</h2>
       <div className='aboutProject__container'>
         <div className='aboutProject__item'>
           <h3 className='aboutProject__subtitle'>Дипломный проект включал 5 этапов</h3>
