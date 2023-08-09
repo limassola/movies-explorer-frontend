@@ -29,9 +29,7 @@ function Movies() {
           </Header>
         </header>
         <main>
-          <section>
-            {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isMoviesPage={true}/> : null}
-          </section>
+          {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isMoviesPage={true}/> : null}
           <section>
             <Search/>
           </section>

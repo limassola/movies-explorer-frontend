@@ -12,7 +12,7 @@ function MoviesCardList({isSavedPage}) {
                 <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
                 <li className="movies-card-list__item"><MoviesCard isSavedPage={isSavedPage}/></li>
             </ul>
-            {isSavedPage ? null : <button className="movies-card-list__button">Ещё</button>}
+            {isSavedPage ? null : <button type='button' className="movies-card-list__button">Ещё</button>}
         </div>
     )
 }
