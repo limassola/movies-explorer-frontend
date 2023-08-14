@@ -1,23 +1,37 @@
 import React from 'react';
 import './Search.css';
 
-function Search() {
-    const [isActive, setActive] = React.useState(false)
-    const switchButtonClassName = (
+function Search({ onSearch, onShortfilmToggle}) {
+  const [isActive, setActive] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const switchButtonClassName = (
         `search__switch ${isActive && 'search__switch_active'}`
-    )
+  )
 
-    function switchAction() {
-        setActive(!isActive)
-    }
-    return (
-      <form className="search">
+  const switchAction = () => {
+    setActive(!isActive);
+    onShortfilmToggle(!isActive); // Передаем обратное значение состояния чекбокса
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSearch(searchQuery); // Передаем значение из инпута в компонент Movies
+  };
+
+  return (
+      <form className="search" onSubmit={handleSubmit}>
         <div className='search__container'>
             <input 
             className='search__input' 
             type='text' 
             placeholder='Фильм' 
             required
+            value={searchQuery}
+            onChange={handleInputChange}
             />
             <button type='submit' className='search__button'/>
         </div>

@@ -2,22 +2,8 @@ import React, {useEffect, useState} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import './MoviesCardList.css';
 
-function MoviesCardList({isSavedPage}) {
-    const movies = [
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-        <MoviesCard isSavedPage={isSavedPage}/>,
-    ];
-
+function MoviesCardList({isSavedPage, movies}) {
+    
     const [visibleCards, setVisibleCards] = useState(isSavedPage ? 3 : 12);
 
     const handleResize = () => {
@@ -43,7 +29,7 @@ function MoviesCardList({isSavedPage}) {
         <div className={`movies-card-list ${isSavedPage ? "movies-card-list_type_save" : ''}`}>
             <ul className={`movies-card-list__container ${isSavedPage && "movies-card-list__container_type_save"}`}>
                 {visibleMovies.map((movie, index) => (
-                    <li key={index} className="movies-card-list__item">{movie}</li>
+                    <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard movie={movie} isSavedPage={isSavedPage}/></li>
                 ))}
             </ul>
             {isSavedPage ? null : <button type='button' className="movies-card-list__button">Ещё</button>}

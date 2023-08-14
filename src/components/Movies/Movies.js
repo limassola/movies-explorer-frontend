@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -6,9 +6,41 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Search from "../Search/Search";
 import './Movies.css';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import moviesApi from '../../utils/MoviesApi';
+import { filterMovies } from '../../utils/MovieUtils';
 
 function Movies() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('');
+  const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
+
+  const handleSearch = (searchQuery) => {
+    setQuery(searchQuery);
+  };
+
+  const handleShortFilmsToggle = () => {
+    setShortFilmsOnly(!shortFilmsOnly);
+  }
+
+  useEffect(() => {
+    moviesApi.getMovies()
+      .then((data) => {
+        const absoluteMovies = data.map(movie => ({
+          ...movie,
+          image: {
+            ...movie.image,
+            url: 'https://api.nomoreparties.co/' + movie.image.url
+          }
+        }));
+        setMovies(absoluteMovies);
+      })
+      .catch((err) => {
+        console.error('Ошибка при получении данных:', err);
+      });
+  }, []);
+
+  const filteredMovies = filterMovies(movies, query, shortFilmsOnly);
 
   const handleBurgerClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,10 +63,10 @@ function Movies() {
         <main>
           {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isMoviesPage={true}/> : null}
           <section>
-            <Search/>
+            <Search onSearch={handleSearch} onShortfilmToggle={handleShortFilmsToggle}/>
           </section>
           <section>
-            <MoviesCardList isSavedPage={false}/>
+            <MoviesCardList movies={filteredMovies} isSavedPage={false}/>
           </section>
         </main>
         <footer>
