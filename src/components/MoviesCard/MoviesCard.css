@@ -27,6 +27,10 @@
     font-weight: 500;
     line-height: normal;
     margin: 0;
+    max-width: 250px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .movies-card__time {
@@ -121,6 +125,7 @@
 
     .movies-card__title {
         font-size: 12px;
+        max-width: 240px;
     }
 
     .movies-card__time {

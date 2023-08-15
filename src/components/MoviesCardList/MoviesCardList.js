@@ -17,14 +17,29 @@ function MoviesCardList({isSavedPage, movies}) {
     };
 
     useEffect(() => {
-        handleResize();
-        window.addEventListener('resize', handleResize);
+        let timeoutId;
+    
+        const handleResizeWithTimeout = () => {
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(handleResize, 200); // Устанавливаем таймаут в 200 миллисекунд
+        };
+    
+        handleResizeWithTimeout();
+        window.addEventListener("resize", handleResizeWithTimeout);
         return () => {
-            window.removeEventListener('resize', handleResize);
-        }
-    }, [])
+          window.removeEventListener("resize", handleResizeWithTimeout);
+        };
+      }, []);
 
-    const visibleMovies = movies.slice(0, visibleCards)
+    const visibleMovies = movies.slice(0, visibleCards);
+
+    const handleShowMoreClick = () => {
+        if (window.innerWidth >= 320 && window.innerWidth < 1280) {
+          setVisibleCards(visibleCards + 2);
+        } else if (window.innerWidth >= 1280) {
+            setVisibleCards(visibleCards + 3);
+        }
+      };
     return(
         <div className={`movies-card-list ${isSavedPage ? "movies-card-list_type_save" : ''}`}>
             <ul className={`movies-card-list__container ${isSavedPage && "movies-card-list__container_type_save"}`}>
@@ -32,7 +47,11 @@ function MoviesCardList({isSavedPage, movies}) {
                     <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard movie={movie} isSavedPage={isSavedPage}/></li>
                 ))}
             </ul>
-            {isSavedPage ? null : <button type='button' className="movies-card-list__button">Ещё</button>}
+            {isSavedPage ? null : visibleMovies.length < movies.length && (
+        <button type="button" className="movies-card-list__button" onClick={handleShowMoreClick}>
+          Ещё
+        </button>
+      )}
         </div>
     )
 }

@@ -8,37 +8,74 @@ import './Movies.css';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import moviesApi from '../../utils/MoviesApi';
 import { filterMovies } from '../../utils/MovieUtils';
+import Preloader from '../Preloader/Preloader';
 
 function Movies() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
   const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const storedQuery = localStorage.getItem('movieSearchQuery');
+  const storedShortFilms = JSON.parse(localStorage.getItem('movieShortFilms'));
+  const storedResults = JSON.parse(localStorage.getItem('movieResults'));
+
 
   const handleSearch = (searchQuery) => {
     setQuery(searchQuery);
+    setIsFormSubmitted(true);
+    localStorage.setItem('movieSearchQuery', searchQuery);
+    localStorage.setItem('movieShortFilms', JSON.stringify(shortFilmsOnly));
   };
 
   const handleShortFilmsToggle = () => {
     setShortFilmsOnly(!shortFilmsOnly);
+    localStorage.setItem('movieShortFilms', JSON.stringify(shortFilmsOnly));
   }
 
   useEffect(() => {
-    moviesApi.getMovies()
-      .then((data) => {
-        const absoluteMovies = data.map(movie => ({
-          ...movie,
-          image: {
-            ...movie.image,
-            url: 'https://api.nomoreparties.co/' + movie.image.url
-          }
-        }));
-        setMovies(absoluteMovies);
-      })
-      .catch((err) => {
-        console.error('Ошибка при получении данных:', err);
+    
+    if (storedQuery && storedShortFilms !== null) {
+      setQuery(storedQuery);
+      setShortFilmsOnly(storedShortFilms);
+    }
+
+    if (storedResults) {
+      setMovies(storedResults);
+    }
+  }, [])
+
+  useEffect(() => {
+    if(isFormSubmitted) {
+      setIsLoading(true)
+      setIsError(false)
+      moviesApi.getMovies()
+        .then((data) => {
+          const absoluteMovies = data.map(movie => ({
+            ...movie,
+            image: {
+              ...movie.image,
+              url: 'https://api.nomoreparties.co/' + movie.image.url
+            }
+          }));
+          setMovies(absoluteMovies);
+          localStorage.setItem('movieResults', JSON.stringify(absoluteMovies))
+        })
+        .catch((err) => {
+          console.error('Ошибка при получении данных:', err);
+          setIsError(true)
+        })
+        .finally(() => {
+          setIsLoading(false);
       });
-  }, []);
+    }
+  }, [isFormSubmitted]);
+
+  // useEffect(() => {
+  //   function updateVisibleCards() {}
+  // }, []);
 
   const filteredMovies = filterMovies(movies, query, shortFilmsOnly);
 
@@ -63,10 +100,18 @@ function Movies() {
         <main>
           {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isMoviesPage={true}/> : null}
           <section>
-            <Search onSearch={handleSearch} onShortfilmToggle={handleShortFilmsToggle}/>
+            <Search onSearch={handleSearch} onShortfilmToggle={handleShortFilmsToggle} query={storedQuery} shortFilmsOnly={storedShortFilms}/>
           </section>
           <section>
-            <MoviesCardList movies={filteredMovies} isSavedPage={false}/>
+          {isLoading ? (
+                <Preloader/>
+              ) : isError ? (
+                <p className="movies__error">Во время запроса произошла ошибка. Подождите немного и попробуйте ещё раз.</p>
+              ) : filteredMovies.length === 0 ? (
+                <p className="movies__not-found">Ничего не найдено</p>
+              ) : (
+                <MoviesCardList movies={filteredMovies} isSavedPage={false}/>
+)}
           </section>
         </main>
         <footer>

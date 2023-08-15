@@ -1,9 +1,9 @@
 import React from 'react';
 import './Search.css';
 
-function Search({ onSearch, onShortfilmToggle}) {
-  const [isActive, setActive] = React.useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
+function Search({ onSearch, onShortfilmToggle, query, shortFilmsOnly}) {
+  const [isActive, setActive] = React.useState(shortFilmsOnly);
+  const [searchQuery, setSearchQuery] = React.useState(query);
   const switchButtonClassName = (
         `search__switch ${isActive && 'search__switch_active'}`
   )

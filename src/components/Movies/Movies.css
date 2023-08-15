@@ -1,0 +1,25 @@
+.movies__not-found {
+    color: #8B8B8B;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.movies__error {
+    color: #8B8B8B;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    margin: 50px 0;
+    text-align: center;
+}
