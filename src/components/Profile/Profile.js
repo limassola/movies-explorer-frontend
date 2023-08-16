@@ -23,6 +23,8 @@ function Profile({ user, onEditProfile, onSignOut }) {
     const handleEmailChange = (e) => {
     setEmail(e.target.value);
     };
+
+    // Не забыть добавить функционал очищения локального хранилища
   return (
     <>
     <header>

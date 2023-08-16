@@ -1,14 +1,42 @@
 import React from "react";
-import image from '../../images/movie__image.png'
 import './MoviesCard.css';
+import mainApi from "../../utils/MainApi";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function MoviesCard({movie, isSavedPage }) {
     const [isSaved, setIsSaved] = React.useState(false);
     const hours = Math.floor(movie.duration / 60);
     const minutes = movie.duration % 60;
+    const currentUserContext = React.useContext(CurrentUserContext)
+     
     const handleSaveClick = () => {
-        setIsSaved(!isSaved)
-    } 
+        const movieData = {
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: movie.image,
+          trailerLink: movie.trailerLink,
+          thumbnail: movie.thumbnail,
+          movieId: movie.movieId,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+        //   owner: currentUserContext._id, // Добавьте текущего пользователя как owner
+        };
+
+    
+        mainApi.saveMovie(movieData)
+          .then(savedMovie => {
+            console.log(savedMovie)
+            setIsSaved(true);
+            // Обновите состояние вашего компонента, используя данные сохраненного фильма
+            // setMovie(savedMovie);
+          })
+          .catch(error => {
+            console.error('Ошибка при сохранении фильма:', error);
+          });
+      };
     
     return(
         <div className="movies-card">

@@ -88,6 +88,23 @@
     cursor: pointer;
 }
 
+.form__button_disabled {
+    background-color: #424242;
+    border-radius: 3px;
+    border: none;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 15px;
+    margin-top: 70px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
 .form__button:hover {
     opacity: 0.8;
     background: #3456F3;

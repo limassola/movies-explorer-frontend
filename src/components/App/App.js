@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -8,10 +8,25 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState([]);
+
+  useEffect(() => {
+    mainApi.getUserInfo()
+    .then((data) => {
+      setCurrentUser(data)
+    })
+    .catch((err) => {
+      console.log(err)
+  })
+  }, [])
+
   return (
-    <div className="App">
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
       <Routes>
         <Route path='/' element={<Main/>}/>
         <Route path='/movies' element={<Movies/>}/>
@@ -22,6 +37,7 @@ function App() {
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
