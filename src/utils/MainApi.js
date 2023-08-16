@@ -62,6 +62,19 @@ class MainApi {
         .then(this._handleResponse);
         
     }
+
+    signin({email, password}){
+        return fetch(`${this._baseUrl}/signin`, {
+            method: 'POST',
+            // credentials: 'include',
+            // mode: 'cors',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email, password})
+        })
+        .then(this._handleResponse);
+    }
 }
 
 const mainApi = new MainApi({

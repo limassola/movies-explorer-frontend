@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState, useContext} from 'react';
 import { Link } from 'react-router-dom';
 // import Popup from "./Popup"; 
 import Header from "../Header/Header";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import './Profile.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
 function Profile({ user, onEditProfile, onSignOut }) {
