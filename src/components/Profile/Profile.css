@@ -97,6 +97,20 @@
     cursor: pointer;
 }
 
+.profile__button_disbled {
+    color: #424242;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 16px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
 .profile__button_type_signout {
     color: #EE3465;
     text-align: center;

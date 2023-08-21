@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
 
-function LoginForm() {
+function LoginForm({onSubmit}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,12 +55,7 @@ function LoginForm() {
     validateForm();
 
     if(isFormValid) {
-      mainApi.signin({email, password})
-      .then((data) => {
-        setCurrentUser(data)
-        navigate('/movies')
-      })
-      .catch(err => console.log(err));
+      onSubmit({email, password})
     }
   };
 

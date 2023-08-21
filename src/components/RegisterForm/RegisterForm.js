@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg'
 import './RegisterForm.css';
 import mainApi from "../../utils/MainApi";
 
-function RegisterForm() {
+function RegisterForm({onSubmit}) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -63,12 +63,7 @@ function RegisterForm() {
     e.preventDefault()
     validateForm();
     if (isFormValid) {
-      const userData = {name, email, password};
-      mainApi.signup(userData)
-      .then(() => {
-        navigate('/movies');
-      })
-      .catch(err => console.log(err));
+      onSubmit(name, email, password);
     };
   };
 

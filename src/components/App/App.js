@@ -13,27 +13,86 @@ import mainApi from '../../utils/MainApi';
 
 function App() {
   const [currentUser, setCurrentUser] = useState([]);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [currentUserEmail, setCurrentUserEmail] = useState('');
+  const [currentUserName, setCurrentUserName] = useState('');
+  const navigate = useNavigate();
+
+  console.log(currentUserEmail)
+  console.log(currentUserName)
 
   useEffect(() => {
-    mainApi.getUserInfo()
-    .then((data) => {
-      setCurrentUser(data)
+    if(localStorage.getItem('jwt')) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [localStorage.getItem('jwt')])
+
+console.log(localStorage.getItem('jwt'))
+
+  useEffect(() => {
+    if(localStorage.getItem('jwt')) {
+        mainApi.getUserInfo(localStorage.getItem('jwt'))
+        .then((data) => {
+        setCurrentUser(data);
+        setCurrentUserEmail(data.email);
+        setCurrentUserName(data.name)
+        setLoggedIn(true);
+      })
+        .catch((err) => {
+        console.log(err)
+      })
+    }
+    
+  }, [isLoggedIn]);
+
+  const signUp = (name, email, password) => {
+    mainApi.signup(name, email, password)
+    .then(() => {
+      signIn({email, password})
+    })
+    .then(() => {
+      navigate('/movies', {replace:true})
     })
     .catch((err) => {
-      console.log(err)
-  })
-  }, [])
+      console.log(err);
+    });
+  }
+
+  const signIn = ({email, password}) => {
+    mainApi.signin({email, password})
+    .then((data) => {
+      localStorage.removeItem("jwt");
+      localStorage.setItem("jwt", data.token);
+      setLoggedIn(true);
+      setCurrentUserEmail(email);
+    })
+    .then(() => {
+      navigate('/movies', {replace:true})
+    })
+    .catch(err=>console.log(err));    
+  }
+
+  const signOut = () => {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('movieShortFilms');
+    localStorage.removeItem('movieSearchQuery');
+    localStorage.removeItem('movieResults');
+    setLoggedIn(false);
+    navigate('/', {replace: true});
+  }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       <div className="App">
       <Routes>
         <Route path='/' element={<Main/>}/>
         <Route path='/movies' element={<Movies/>}/>
         <Route path='/saved-movies' element={<SavedMovies/>}/>
-        <Route path='/profile' element={<Profile/>}/>
-        <Route path='/signup' element={<Register/>}/>
-        <Route path='/signin' element={<Login/>}/>
+        <Route path='/profile' element={<Profile onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>
+        <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
+        <Route path='/signin' element={<Login onSubmit={signIn}/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </div>

@@ -1,7 +1,6 @@
 class MainApi {
     constructor(config) {
         this._baseUrl = config.url;
-        this._headers = config.headers;
     }
 
     _handleResponse(res) {
@@ -13,51 +12,74 @@ class MainApi {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    saveMovie(movieData) {
+    saveMovie(movieData, token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
-            headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
             body: JSON.stringify(movieData),
         })
         .then(this._handleResponse);
     }
 
-    getSavedMovies() {
+    getSavedMovies(token) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
-            headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
         })
         .then(this._handleResponse); 
     }
 
-    deleteMovie(movieId) {
+    deleteMovie(movieId, token) {
         return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: 'DELETE',
-            headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
         })
         .then(this._handleResponse);
     }
 
-    getUserInfo() {
-        return fetch(`${this._url}/movies/me`, {
+    getUserInfo(token) {
+        return fetch(`${this._baseUrl}/movies/me`, {
             method: 'GET',
-            credentials: 'include',
             headers: {
-                'content-type': 'application/json',
-              },
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
         })
         .then(this._handleResponse)
     }
 
-    signup(userData) {
+    updateUserInfo(updatedUserData, token) {
+        return fetch(`${this._baseUrl}/movies/me`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`,
+            },
+            body: JSON.stringify(updatedUserData),
+        })
+        .then(this._handleResponse)
+    }
+
+    signup(name, email, password) {
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
-            // credentials: 'include',
-            // mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            }),
         })
         .then(this._handleResponse);
         
@@ -66,8 +88,6 @@ class MainApi {
     signin({email, password}){
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
-            // credentials: 'include',
-            // mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -79,9 +99,6 @@ class MainApi {
 
 const mainApi = new MainApi({
     url: 'http://localhost:3000',
-    headers: {
-        'Content-Type': 'application/json',
-    }
 })
 
 export default mainApi;

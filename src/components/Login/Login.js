@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import LoginForm from "../LoginForm/LoginForm";
 import './Login.css';
 
-function Login() {
+function Login({onSubmit}) {
   return (
     <main>
       <section>
         <div className="login">
-          <LoginForm />
+          <LoginForm onSubmit={onSubmit}/>
           <div className="login__container">
             <p className="login__text">Ещё не зарегистрированы?</p>
             <Link to="/signup" className="login__link">Регистрация</Link>

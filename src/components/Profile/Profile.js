@@ -1,28 +1,77 @@
-import React, { useState, useContext} from 'react';
-import { Link } from 'react-router-dom';
-// import Popup from "./Popup"; 
+import React, { useState, useContext, useEffect} from 'react';
+import { Link } from 'react-router-dom'; 
 import Header from "../Header/Header";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
 
 
-function Profile({ user, onEditProfile, onSignOut }) {
+function Profile({ onSignOut, currentName, currentEmail }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const currentUserContext = useContext(CurrentUserContext);
+    const [nameError, setNameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [name, setName] = useState(currentName);
+    const [email, setEmail] = useState(currentEmail);
+    const [hasChanges, setHasChanges] = useState(false);
+
+
+    const checkForChanges = (newName, newEmail) => {
+      if((newName !== name || newEmail !== email) && !nameError && !emailError) {
+        setHasChanges(true);
+      } else {
+        setHasChanges(false);
+      }
+    };
 
     const handleBurgerClick = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const [name, setName] = useState('Виталий');
-     const [email, setEmail] = useState('pochta@yandex.ru');
-
+    
     const handleNameChange = (e) => {
-    setName(e.target.value);
+      const newName = e.target.value;
+      setName(newName);
+      if(!newName) {
+        setNameError('Введите имя');
+      } else {
+        setNameError('');
+      }
+      checkForChanges(newName, email);
     };
 
     const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+      const newEmail = e.target.value;
+      setEmail(newEmail);
+      if (!newEmail) {
+        setEmailError('Введите почту');
+      } else if (!/\S+@\S+\.\S+/.test(newEmail)) {
+        setEmailError('Некорректный формат почты');
+      } else {
+        setEmailError('');
+      }
+      checkForChanges(name, newEmail);
+    };
+
+    const handleEditClick = () => {
+      if(hasChanges && !nameError && !emailError) {
+        const updatedUserData = {
+          name,
+          email,
+        };
+
+        console.log(updatedUserData);
+        mainApi.updateUserInfo(updatedUserData)
+        .then((updatedInfo) => {
+          console.log(updatedInfo)
+          currentUserContext.setCurrentUser(updatedInfo);
+          setEmailError('');
+          setNameError('');
+          setHasChanges(false);
+        })
+        .catch(err => console.log('Ошибка при обновлении данных:', err));
+      }
     };
 
     // Не забыть добавить функционал очищения локального хранилища
@@ -44,7 +93,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
         {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
         <section>
             <div className="profile">
-                <h1 className="profile__title">Привет, Виталий!</h1>
+                <h1 className="profile__title">Привет, {currentName}!</h1>
                 <form className="profile__form">
           <div className="profile__info">
             <div className="profile__item">
@@ -52,7 +101,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
               <input
                 className="profile__input"
                 type="text"
-                value={name}
+                value={currentName}
                 onChange={handleNameChange}
                 placeholder='Введите имя'
                 minLength="2"
@@ -64,7 +113,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
               <input
                 className="profile__input"
                 type="email"
-                value={email}
+                value={currentEmail}
                 onChange={handleEmailChange}
                 placeholder='Введите Email'
               />
@@ -73,8 +122,9 @@ function Profile({ user, onEditProfile, onSignOut }) {
           <div className="profile__container">
             <button
               type="button"
-              className="profile__button profile__button_type_popup"
-              onClick={onEditProfile}
+              className={`${hasChanges ? 'profile__button profile__button_type_popup' : ' profile__button_disbled'}`}
+              onClick={handleEditClick}
+              disabled={!hasChanges}
             >
               Редактировать
             </button>

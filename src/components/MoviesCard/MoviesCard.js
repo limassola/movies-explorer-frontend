@@ -8,6 +8,7 @@ function MoviesCard({movie, isSavedPage }) {
     const hours = Math.floor(movie.duration / 60);
     const minutes = movie.duration % 60;
     const currentUserContext = React.useContext(CurrentUserContext)
+    console.log(movie)
      
     const handleSaveClick = () => {
         const movieData = {
@@ -16,17 +17,17 @@ function MoviesCard({movie, isSavedPage }) {
           duration: movie.duration,
           year: movie.year,
           description: movie.description,
-          image: movie.image,
+          image: movie.image.url,
           trailerLink: movie.trailerLink,
-          thumbnail: movie.thumbnail,
-          movieId: movie.movieId,
+          thumbnail: movie.trailerLink,
+          movieId: movie.id,
           nameRU: movie.nameRU,
           nameEN: movie.nameEN,
         //   owner: currentUserContext._id, // Добавьте текущего пользователя как owner
         };
 
     
-        mainApi.saveMovie(movieData)
+        mainApi.saveMovie(movieData, localStorage.getItem('jwt'))
           .then(savedMovie => {
             console.log(savedMovie)
             setIsSaved(true);
