@@ -87,7 +87,7 @@ console.log(localStorage.getItem('jwt'))
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       <div className="App">
       <Routes>
-        <Route path='/' element={<Main/>}/>
+        <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route path='/movies' element={<Movies/>}/>
         <Route path='/saved-movies' element={<SavedMovies/>}/>
         <Route path='/profile' element={<Profile onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>

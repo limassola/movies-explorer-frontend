@@ -7,8 +7,7 @@ function MoviesCard({movie, isSavedPage }) {
     const [isSaved, setIsSaved] = React.useState(false);
     const hours = Math.floor(movie.duration / 60);
     const minutes = movie.duration % 60;
-    const currentUserContext = React.useContext(CurrentUserContext)
-    console.log(movie)
+
      
     const handleSaveClick = () => {
         const movieData = {
@@ -38,9 +37,15 @@ function MoviesCard({movie, isSavedPage }) {
             console.error('Ошибка при сохранении фильма:', error);
           });
       };
+
+      const onCardClick = (e) => {
+        if (!e.target.classList.contains(`movies-card__button`)) {
+            window.open(`${movie.trailerLink}`, '_blank')
+        }
+    }
     
     return(
-        <div className="movies-card">
+        <div className="movies-card" onClick={onCardClick}>
             <img className="movies-card__image" src={movie.image.url} alt={movie.nameRU}/>
             {isSavedPage ? (<button type='button' className="movies-card__button movies-card__button_delete"></button>) : (<button type='button' onClick={handleSaveClick} className={`movies-card__button ${isSaved ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSaved ? null : "Сохранить"}</button>)}
             <div className="movies-card__heading">
