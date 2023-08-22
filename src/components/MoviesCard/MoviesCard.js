@@ -3,12 +3,11 @@ import './MoviesCard.css';
 import mainApi from "../../utils/MainApi";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-function MoviesCard({movie, isSavedPage }) {
+function MoviesCard({movie, isSavedPage, handleDeleteMovie }) {
     const [isSaved, setIsSaved] = React.useState(false);
     const hours = Math.floor(movie.duration / 60);
     const minutes = movie.duration % 60;
 
-     
     const handleSaveClick = () => {
         const movieData = {
           country: movie.country,
@@ -43,11 +42,27 @@ function MoviesCard({movie, isSavedPage }) {
             window.open(`${movie.trailerLink}`, '_blank')
         }
     }
+
+      const handleDeleteClick = () => {
+        const movieId = movie._id;
+        handleDeleteMovie(movieId)
+      }
+
+      const deleteSavedMovie = () => {
+        const movieId = movie.id;
+        mainApi.deleteMovie(movieId, localStorage.getItem('jwt'))
+        .then(() => {
+          setIsSaved(false);
+        })
+        .catch(error => {
+          console.error('Ошибка при сохранении фильма:', error);
+        });
+      }
     
     return(
         <div className="movies-card" onClick={onCardClick}>
-            <img className="movies-card__image" src={movie.image.url} alt={movie.nameRU}/>
-            {isSavedPage ? (<button type='button' className="movies-card__button movies-card__button_delete"></button>) : (<button type='button' onClick={handleSaveClick} className={`movies-card__button ${isSaved ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSaved ? null : "Сохранить"}</button>)}
+            <img className="movies-card__image" src={isSavedPage ? movie.image : movie.image.url} alt={movie.nameRU}/>
+            {isSavedPage ? (<button onClick={handleDeleteClick} type='button' className="movies-card__button movies-card__button_delete"></button>) : (<button type='button' onClick={isSaved ? deleteSavedMovie : handleSaveClick} className={`movies-card__button ${isSaved ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSaved ? null : "Сохранить"}</button>)}
             <div className="movies-card__heading">
                 <h2 className="movies-card__title">{movie.nameRU}</h2>
                 <p className="movies-card__time">{hours}ч {minutes}м</p>

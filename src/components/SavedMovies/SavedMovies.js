@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -6,15 +6,48 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Search from "../Search/Search";
 import './SavedMovies.css';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import mainApi from '../../utils/MainApi';
+import { filterMovies } from '../../utils/MovieUtils';
 
 function SavedMovies() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [shortFilmChecked, setShortFilmChecked] = useState(false);
+ 
 
   const handleBurgerClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-    return (
+  useEffect(() => {
+    mainApi.getSavedMovies(localStorage.getItem('jwt'))
+    .then((data) => {
+      setSavedMovies(data);
+    })
+  }, []);
+  
+ 
+
+  const handleSearch = (searchQuery) => { 
+    setSearchQuery(searchQuery);
+  };
+
+
+  const handleDeleteMovie = (movieId) => {
+    console.log(movieId)
+    mainApi.deleteMovie(movieId, localStorage.getItem('jwt'))
+      .then(() => {
+        setSavedMovies(savedMovies.filter(movie => movie._id !== movieId));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const filteredMovies = filterMovies(savedMovies, searchQuery, shortFilmChecked)
+
+  return (
       <div className="saved-movies">
         <header>
           <Header>
@@ -33,10 +66,10 @@ function SavedMovies() {
             {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={true}/> : null}
           </section>
           <section>
-            <Search/>
+            <Search isSavedPage={true} setShortFilmChecked={setShortFilmChecked} handleSearch={handleSearch}/>
           </section>
           <section>
-            <MoviesCardList isSavedPage={true}/>
+            <MoviesCardList handleDeleteMovie={handleDeleteMovie} savedMovies={filteredMovies} isSavedPage={true}/>
           </section>
         </main>
         <footer>

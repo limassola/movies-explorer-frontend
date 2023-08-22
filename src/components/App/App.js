@@ -18,9 +18,6 @@ function App() {
   const [currentUserName, setCurrentUserName] = useState('');
   const navigate = useNavigate();
 
-  console.log(currentUserEmail)
-  console.log(currentUserName)
-
   useEffect(() => {
     if(localStorage.getItem('jwt')) {
       setLoggedIn(true);
@@ -29,7 +26,6 @@ function App() {
     }
   }, [localStorage.getItem('jwt')])
 
-console.log(localStorage.getItem('jwt'))
 
   useEffect(() => {
     if(localStorage.getItem('jwt')) {

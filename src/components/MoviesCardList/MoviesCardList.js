@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import './MoviesCardList.css';
 
-function MoviesCardList({isSavedPage, movies}) {
+function MoviesCardList({isSavedPage, movies, savedMovies, handleDeleteMovie}) {
     
     const [visibleCards, setVisibleCards] = useState(isSavedPage ? 3 : 12);
+    let visibleMovies;
 
     const handleResize = () => {
         if(window.innerWidth >= 1280) {
@@ -29,9 +30,15 @@ function MoviesCardList({isSavedPage, movies}) {
         return () => {
           window.removeEventListener("resize", handleResizeWithTimeout);
         };
-      }, []);
+    }, []);
 
-    const visibleMovies = movies.slice(0, visibleCards);
+
+    if (isSavedPage) {
+      visibleMovies = savedMovies;
+    } else {
+      visibleMovies = movies.slice(0, visibleCards);
+    }   
+
 
     const handleShowMoreClick = () => {
         if (window.innerWidth >= 320 && window.innerWidth < 1280) {
@@ -44,7 +51,7 @@ function MoviesCardList({isSavedPage, movies}) {
         <div className={`movies-card-list ${isSavedPage ? "movies-card-list_type_save" : ''}`}>
             <ul className={`movies-card-list__container ${isSavedPage && "movies-card-list__container_type_save"}`}>
                 {visibleMovies.map((movie, index) => (
-                    <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard movie={movie} isSavedPage={isSavedPage}/></li>
+                    <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard handleDeleteMovie={handleDeleteMovie} movie={movie} isSavedPage={isSavedPage}/></li>
                 ))}
             </ul>
             {isSavedPage ? null : visibleMovies.length < movies.length && (
