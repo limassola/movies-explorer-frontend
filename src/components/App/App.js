@@ -10,6 +10,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [currentUser, setCurrentUser] = useState([]);
@@ -84,9 +85,9 @@ function App() {
       <div className="App">
       <Routes>
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
-        <Route path='/movies' element={<Movies/>}/>
-        <Route path='/saved-movies' element={<SavedMovies/>}/>
-        <Route path='/profile' element={<Profile onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>
+        <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn}/>}/>
+        <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn}/>}/>
+        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>
         <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login onSubmit={signIn}/>}/>
         <Route path='*' element={<NotFoundPage/>}/>

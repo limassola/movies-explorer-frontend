@@ -27,6 +27,7 @@ function SavedMovies() {
     })
   }, []);
   
+  console.log(savedMovies)
  
 
   const handleSearch = (searchQuery) => { 
@@ -38,7 +39,7 @@ function SavedMovies() {
     console.log(movieId)
     mainApi.deleteMovie(movieId, localStorage.getItem('jwt'))
       .then(() => {
-        setSavedMovies(savedMovies.filter(movie => movie._id !== movieId));
+        setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId));
       })
       .catch((err) => {
         console.error(err);
