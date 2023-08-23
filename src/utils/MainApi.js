@@ -110,7 +110,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-    url: 'http://localhost:3000',
+    url: 'https:api.limassola.diploma.nomoredomains.xyz',
 })
 
 export default mainApi;
