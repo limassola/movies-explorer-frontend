@@ -9,9 +9,9 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import mainApi from '../../utils/MainApi';
 import { filterMovies } from '../../utils/MovieUtils';
 
-function SavedMovies() {
+function SavedMovies({onSaveMovie, savedMovies}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [shortFilmChecked, setShortFilmChecked] = useState(false);
  
@@ -20,12 +20,12 @@ function SavedMovies() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    mainApi.getSavedMovies(localStorage.getItem('jwt'))
-    .then((data) => {
-      setSavedMovies(data);
-    })
-  }, []);
+  // useEffect(() => {
+  //   mainApi.getSavedMovies(localStorage.getItem('jwt'))
+  //   .then((data) => {
+  //     setSavedMovies(data);
+  //   })
+  // }, []);
   
   console.log(savedMovies)
  
@@ -39,7 +39,7 @@ function SavedMovies() {
     console.log(movieId)
     mainApi.deleteMovie(movieId, localStorage.getItem('jwt'))
       .then(() => {
-        setSavedMovies(savedMovies.filter((movie) => movie._id !== movieId));
+        setFoundSavedMovies(savedMovies.filter((movie) => movie._id !== movieId));
       })
       .catch((err) => {
         console.error(err);
@@ -70,7 +70,7 @@ function SavedMovies() {
             <Search isSavedPage={true} setShortFilmChecked={setShortFilmChecked} handleSearch={handleSearch}/>
           </section>
           <section>
-            <MoviesCardList handleDeleteMovie={handleDeleteMovie} savedMovies={filteredMovies} isSavedPage={true}/>
+            <MoviesCardList onSaveMovie={onSaveMovie} handleDeleteMovie={handleDeleteMovie} savedMovies={filteredMovies} isSavedPage={true} movies={foundSavedMovies}/>
           </section>
         </main>
         <footer>

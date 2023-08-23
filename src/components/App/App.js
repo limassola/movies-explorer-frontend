@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import { Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -17,6 +17,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [currentUserName, setCurrentUserName] = useState('');
+  const [savedMovies, setSavedMovies] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,17 +32,21 @@ function App() {
   useEffect(() => {
     if(localStorage.getItem('jwt')) {
         mainApi.getUserInfo(localStorage.getItem('jwt'))
-        .then((data) => {
+      .then((data) => {
         setCurrentUser(data);
         setCurrentUserEmail(data.email);
         setCurrentUserName(data.name)
         setLoggedIn(true);
       })
-        .catch((err) => {
+      .catch((err) => {
         console.log(err)
-      })
+      });
+      mainApi.getSavedMovies(localStorage.getItem('jwt'))
+      .then(movies=>setSavedMovies(movies))
+      .catch(err=>console.log(err))
+    } else {
+      setLoggedIn(false)
     }
-    
   }, [isLoggedIn]);
 
   const signUp = (name, email, password) => {
@@ -78,15 +83,36 @@ function App() {
     localStorage.removeItem('movieResults');
     setLoggedIn(false);
     navigate('/', {replace: true});
-  }
+  };
+
+  const onSaveMovie = useCallback ((nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail, movieId) => {
+    if (!savedMovies.some(m => m.nameRU.includes(nameRU))) {
+      mainApi
+        .saveMovie(nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail, movieId, localStorage.getItem('jwt'))
+        .then(movie => {
+          setSavedMovies(prevSavedMovies => [...prevSavedMovies, movie]);
+        })
+        .catch(err => console.log(err));
+    } else {
+      const index = savedMovies.findIndex(m => m.nameRU.includes(nameRU));
+      if (index !== -1) {
+        mainApi
+          .deleteMovie(savedMovies[index]._id, localStorage.getItem('jwt'))
+          .then(() => {
+            setSavedMovies(prevSavedMovies => prevSavedMovies.filter((_, i) => i !== index));
+          })
+          .catch(err => console.log(err));
+      }
+    }
+  }, [savedMovies]);
 
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       <div className="App">
       <Routes>
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
-        <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn}/>}/>
-        <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn}/>}/>
+        <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
+        <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
         <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>
         <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login onSubmit={signIn}/>}/>

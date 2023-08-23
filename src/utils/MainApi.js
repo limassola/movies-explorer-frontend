@@ -12,14 +12,26 @@ class MainApi {
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 
-    saveMovie(movieData, token) {
+    saveMovie(nameRU, nameEN, country, director, duration, year, description, image, trailer, thumbnail, movieId, token ) {
         return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization' : `Bearer ${token}`,
             },
-            body: JSON.stringify(movieData),
+            body: JSON.stringify({
+                nameRU: nameRU,
+                nameEN: nameEN,
+                country: country,
+                director: director,
+                duration: duration,
+                year: year,
+                description: description,
+                image: image,
+                trailerLink: trailer,
+                thumbnail: thumbnail,
+                movieId: movieId
+            }),
         })
         .then(this._handleResponse);
     }

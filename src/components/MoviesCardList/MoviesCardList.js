@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import './MoviesCardList.css';
 
-function MoviesCardList({isSavedPage, movies, savedMovies, handleDeleteMovie}) {
+function MoviesCardList({isSavedPage, movies, savedMovies, handleDeleteMovie, onSaveMovie}) {
     
     const [visibleCards, setVisibleCards] = useState(isSavedPage ? 3 : 12);
     let visibleMovies;
@@ -51,7 +51,7 @@ function MoviesCardList({isSavedPage, movies, savedMovies, handleDeleteMovie}) {
         <div className={`movies-card-list ${isSavedPage ? "movies-card-list_type_save" : ''}`}>
             <ul className={`movies-card-list__container ${isSavedPage && "movies-card-list__container_type_save"}`}>
                 {visibleMovies.map((movie, index) => (
-                    <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard handleDeleteMovie={handleDeleteMovie} movie={movie} isSavedPage={isSavedPage}/></li>
+                    <li key={index} className="movies-card-list__item" movie={movie}><MoviesCard onSaveMovie={onSaveMovie} handleDeleteMovie={handleDeleteMovie} movie={movie} isSavedPage={isSavedPage} savedMovies={savedMovies}/></li>
                 ))}
             </ul>
             {isSavedPage ? null : visibleMovies.length < movies.length && (
