@@ -110,7 +110,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-    url: 'https:api.limassola.diploma.nomoredomains.xyz',
+    url: 'https://api.limassola.diploma.nomoredomains.xyz',
 })
 
 export default mainApi;
