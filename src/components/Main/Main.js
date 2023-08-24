@@ -18,7 +18,6 @@ function Main({ isLoggedIn }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  console.log(isLoggedIn)
 
   return (
     <div className="main">

@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect} from 'react';
+import validator from "validator";
 import { Link } from 'react-router-dom'; 
 import Header from "../Header/Header";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
@@ -7,72 +8,54 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 
 
-function Profile({ onSignOut, currentName, currentEmail }) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const currentUserContext = useContext(CurrentUserContext);
-    const [nameError, setNameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [name, setName] = useState(currentName);
-    const [email, setEmail] = useState(currentEmail);
-    const [hasChanges, setHasChanges] = useState(false);
+function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName }) {
+  const [isNameChanged, setNameChanged] = React.useState(false);
+  const [isEmailChanged, setEmailChanged] = React.useState(false);
+  const [isNameValid, setNameValid] = React.useState(true);
+  const [isEmailValid, setEmailValid] = React.useState(true);
+  const [isAllowed, setAllowed] = React.useState(false);
+  const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleNameChange = (evt) => {
+    setCurrentUserName(evt.target.value);
+      setNameValid(evt.target.value.length>1 && evt.target.value.length<31);
+  }
+  const handleEmailChange = (evt) => {
+    setCurrentUserEmail(evt.target.value);
+      setEmailValid(validator.isEmail(evt.target.value));
+  }
+  useEffect(()=>{
+      if (currentUser) {
+        setEmailChanged(!(currentEmail===currentUser.email))
+      }
+  },[currentEmail, currentUser])
 
-
-    const checkForChanges = (newName, newEmail) => {
-      if((newName !== name || newEmail !== email) && !nameError && !emailError) {
-        setHasChanges(true);
+  useEffect(()=>{
+    if (currentUser) {
+      setNameChanged(!(currentName===currentUser.name))
+    }
+      
+  },[currentName, currentUser])
+  
+  const handleUpdate = (e) => {
+      e.preventDefault();
+      if (isAllowed){
+          onUpdateUser();
+          setUpdateSucceed(true);
       } else {
-        setHasChanges(false);
+          setUpdateSucceed(false);
       }
-    };
+      setAllowed(false);
+  }
+  useEffect(()=>{
+      if ((isEmailChanged || isNameChanged) && isNameValid && isEmailValid) {
+          setAllowed(true)
+      } else setAllowed(false)
+  },[isEmailChanged, isNameChanged , isEmailValid, isNameValid]);
 
-    const handleBurgerClick = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    
-    const handleNameChange = (e) => {
-      const newName = e.target.value;
-      setName(newName);
-      if(!newName) {
-        setNameError('Введите имя');
-      } else {
-        setNameError('');
-      }
-      checkForChanges(newName, email);
-    };
-
-    const handleEmailChange = (e) => {
-      const newEmail = e.target.value;
-      setEmail(newEmail);
-      if (!newEmail) {
-        setEmailError('Введите почту');
-      } else if (!/\S+@\S+\.\S+/.test(newEmail)) {
-        setEmailError('Некорректный формат почты');
-      } else {
-        setEmailError('');
-      }
-      checkForChanges(name, newEmail);
-    };
-
-    const handleEditClick = () => {
-      if(hasChanges && !nameError && !emailError) {
-        const updatedUserData = {
-          name,
-          email,
-        };
-
-        console.log(updatedUserData);
-        mainApi.updateUserInfo(updatedUserData)
-        .then((updatedInfo) => {
-          console.log(updatedInfo)
-          currentUserContext.setCurrentUser(updatedInfo);
-          setEmailError('');
-          setNameError('');
-          setHasChanges(false);
-        })
-        .catch(err => console.log('Ошибка при обновлении данных:', err));
-      }
-    };
+  const handleBurgerClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+};
 
     // Не забыть добавить функционал очищения локального хранилища
   return (
@@ -122,9 +105,9 @@ function Profile({ onSignOut, currentName, currentEmail }) {
           <div className="profile__container">
             <button
               type="button"
-              className={`${hasChanges ? 'profile__button profile__button_type_popup' : ' profile__button_disbled'}`}
-              onClick={handleEditClick}
-              disabled={!hasChanges}
+              className={`${isAllowed ? 'profile__button profile__button_type_popup' : ' profile__button_disbled'}`}
+              onClick={handleUpdate}
+              disabled={!isAllowed}
             >
               Редактировать
             </button>

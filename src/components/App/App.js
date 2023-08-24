@@ -89,22 +89,36 @@ function App() {
     if (!savedMovies.some(m => m.nameRU.includes(nameRU))) {
       mainApi
         .saveMovie(nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail, movieId, localStorage.getItem('jwt'))
-        .then(movie => {
-          setSavedMovies(prevSavedMovies => [...prevSavedMovies, movie]);
-        })
-        .catch(err => console.log(err));
+        .then((movie)=>{const arr = savedMovies; for(let key in movie){arr.push(movie[key])}; return arr})
+        .then(res=>setSavedMovies(res))
+        .catch(err=>console.log(err))
     } else {
-      const index = savedMovies.findIndex(m => m.nameRU.includes(nameRU));
+      console.log(savedMovies)
+      const index = savedMovies.findIndex(m=>m.nameRU.includes(nameRU))
+      const array = savedMovies.splice(0, savedMovies.length)
+      console.log(index)
+      console.log(array)
       if (index !== -1) {
         mainApi
-          .deleteMovie(savedMovies[index]._id, localStorage.getItem('jwt'))
-          .then(() => {
-            setSavedMovies(prevSavedMovies => prevSavedMovies.filter((_, i) => i !== index));
-          })
-          .catch(err => console.log(err));
+          .deleteMovie(array[index]._id, localStorage.getItem('jwt'))
+          .then(array.splice(index,1))
+          .then(setSavedMovies(array))
+          .catch(err=>console.log(err))
       }
     }
   }, [savedMovies]);
+
+
+  const handleUpdateUser = () => {
+    mainApi
+      .updateUserInfo(currentUserName, currentUserEmail, localStorage.getItem('jwt'))
+      .then((data)=>{
+        setCurrentUser(data.user);
+        setCurrentUserEmail(data.user.email);
+        setCurrentUserName(data.user.name)
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
@@ -113,7 +127,7 @@ function App() {
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
         <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
-        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail}/>}/>
+        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser}/>}/>
         <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login onSubmit={signIn}/>}/>
         <Route path='*' element={<NotFoundPage/>}/>

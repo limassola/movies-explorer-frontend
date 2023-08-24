@@ -12,8 +12,32 @@ import { filterMovies } from '../../utils/MovieUtils';
 function SavedMovies({onSaveMovie, savedMovies}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [shortFilmChecked, setShortFilmChecked] = useState(false);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [isCheckboxActive, setCheckbox] = useState(false);
+    
+  
+  useEffect(() => {
+        setFoundSavedMovies(savedMovies)
+  },[])
+    
+  useEffect(()=> {
+        if(isCheckboxActive) {
+            setFilteredSavedMovies(foundSavedMovies.filter(movie=>movie.duration<40))
+        } else {
+            setFilteredSavedMovies(foundSavedMovies)
+        }
+  },[isCheckboxActive, foundSavedMovies])
+    
+  const onSearch = (str) => {
+    setFoundSavedMovies(savedMovies.filter((movie)=>movie.nameRU.toLowerCase().includes(str.toLowerCase())))
+      if (str==='') {
+       setFoundSavedMovies(savedMovies)
+    }
+  }
+
+    const onCheckboxClick = () => {
+        setCheckbox(!isCheckboxActive);
+    }
  
 
   const handleBurgerClick = () => {
@@ -27,27 +51,12 @@ function SavedMovies({onSaveMovie, savedMovies}) {
   //   })
   // }, []);
   
-  console.log(savedMovies)
- 
 
-  const handleSearch = (searchQuery) => { 
-    setSearchQuery(searchQuery);
-  };
+  // const handleSearch = (searchQuery) => { 
+  //   setSearchQuery(searchQuery);
+  // };
 
-
-  const handleDeleteMovie = (movieId) => {
-    console.log(movieId)
-    mainApi.deleteMovie(movieId, localStorage.getItem('jwt'))
-      .then(() => {
-        setFoundSavedMovies(savedMovies.filter((movie) => movie._id !== movieId));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const filteredMovies = filterMovies(savedMovies, searchQuery, shortFilmChecked)
-
+  
   return (
       <div className="saved-movies">
         <header>
@@ -67,10 +76,10 @@ function SavedMovies({onSaveMovie, savedMovies}) {
             {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={true}/> : null}
           </section>
           <section>
-            <Search isSavedPage={true} setShortFilmChecked={setShortFilmChecked} handleSearch={handleSearch}/>
+            <Search isSavedPage={true} setShortFilmChecked={onCheckboxClick} handleSearch={onSearch}/>
           </section>
           <section>
-            <MoviesCardList onSaveMovie={onSaveMovie} handleDeleteMovie={handleDeleteMovie} savedMovies={filteredMovies} isSavedPage={true} movies={foundSavedMovies}/>
+            <MoviesCardList onSaveMovie={onSaveMovie}  savedMovies={savedMovies} isSavedPage={true} movies={filteredSavedMovies}/>
           </section>
         </main>
         <footer>

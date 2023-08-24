@@ -69,14 +69,17 @@ class MainApi {
         .then(this._handleResponse)
     }
 
-    updateUserInfo(updatedUserData, token) {
+    updateUserInfo(userName, userEmail, token) {
         return fetch(`${this._baseUrl}/movies/me`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization' : `Bearer ${token}`,
             },
-            body: JSON.stringify(updatedUserData),
+            body: JSON.stringify({
+                name: userName,
+                email: userEmail
+            }),
         })
         .then(this._handleResponse)
     }
