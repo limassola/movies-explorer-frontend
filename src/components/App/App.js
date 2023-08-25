@@ -89,24 +89,23 @@ function App() {
     if (!savedMovies.some(m => m.nameRU.includes(nameRU))) {
       mainApi
         .saveMovie(nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail, movieId, localStorage.getItem('jwt'))
-        .then((movie)=>{const arr = savedMovies; for(let key in movie){arr.push(movie[key])}; return arr})
-        .then(res=>setSavedMovies(res))
-        .catch(err=>console.log(err))
+        .then(movie => {
+          setSavedMovies(prevSavedMovies => [...prevSavedMovies, movie]);
+        })
+        .catch(err => console.log(err));
     } else {
-      console.log(savedMovies)
-      const index = savedMovies.findIndex(m=>m.nameRU.includes(nameRU))
-      const array = savedMovies.splice(0, savedMovies.length)
-      console.log(index)
-      console.log(array)
+      const index = savedMovies.findIndex(m => m.nameRU.includes(nameRU));
       if (index !== -1) {
         mainApi
-          .deleteMovie(array[index]._id, localStorage.getItem('jwt'))
-          .then(array.splice(index,1))
-          .then(setSavedMovies(array))
-          .catch(err=>console.log(err))
+          .deleteMovie(savedMovies[index]._id, localStorage.getItem('jwt'))
+          .then(() => {
+            setSavedMovies(prevSavedMovies => prevSavedMovies.filter((_, i) => i !== index));
+          })
+          .catch(err => console.log(err));
       }
     }
   }, [savedMovies]);
+
 
 
   const handleUpdateUser = () => {

@@ -14,26 +14,29 @@ function SavedMovies({onSaveMovie, savedMovies}) {
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [isCheckboxActive, setCheckbox] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
     
   
   useEffect(() => {
         setFoundSavedMovies(savedMovies)
   },[])
     
-  useEffect(()=> {
-        if(isCheckboxActive) {
-            setFilteredSavedMovies(foundSavedMovies.filter(movie=>movie.duration<40))
-        } else {
-            setFilteredSavedMovies(foundSavedMovies)
-        }
-  },[isCheckboxActive, foundSavedMovies])
+  // useEffect(()=> {
+  //       if(isCheckboxActive) {
+  //           setFilteredSavedMovies(foundSavedMovies.filter(movie=>movie.duration<40))
+  //       } else {
+  //           setFilteredSavedMovies(foundSavedMovies)
+  //       }
+  // },[isCheckboxActive, foundSavedMovies])
     
-  const onSearch = (str) => {
-    setFoundSavedMovies(savedMovies.filter((movie)=>movie.nameRU.toLowerCase().includes(str.toLowerCase())))
-      if (str==='') {
-       setFoundSavedMovies(savedMovies)
-    }
-  }
+  // const onSearch = (searchQuery) => {
+  //   setSearchQuery(searchQuery)
+  //   console.log(searchQuery)
+  //   setFoundSavedMovies(savedMovies.filter((movie)=>movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())))
+  //     if (searchQuery==='') {
+  //      setFoundSavedMovies(savedMovies)
+  //   }
+  // }
 
     const onCheckboxClick = () => {
         setCheckbox(!isCheckboxActive);
@@ -52,9 +55,14 @@ function SavedMovies({onSaveMovie, savedMovies}) {
   // }, []);
   
 
-  // const handleSearch = (searchQuery) => { 
-  //   setSearchQuery(searchQuery);
-  // };
+  const handleSearch = (searchQuery) => { 
+    setSearchQuery(searchQuery);
+    if (searchQuery==='') {
+      setFoundSavedMovies(savedMovies)
+    }
+  };
+
+  const filteredMovies = filterMovies(savedMovies, searchQuery, isCheckboxActive)
 
   
   return (
@@ -76,10 +84,10 @@ function SavedMovies({onSaveMovie, savedMovies}) {
             {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={true}/> : null}
           </section>
           <section>
-            <Search isSavedPage={true} setShortFilmChecked={onCheckboxClick} handleSearch={onSearch}/>
+            <Search isSavedPage={true} setShortFilmChecked={onCheckboxClick} handleSearch={handleSearch}/>
           </section>
           <section>
-            <MoviesCardList onSaveMovie={onSaveMovie}  savedMovies={savedMovies} isSavedPage={true} movies={filteredSavedMovies}/>
+            <MoviesCardList onSaveMovie={onSaveMovie}  savedMovies={filteredMovies} isSavedPage={true} movies={filteredSavedMovies}/>
           </section>
         </main>
         <footer>
