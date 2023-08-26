@@ -19,7 +19,7 @@ function SavedMovies({onSaveMovie, savedMovies}) {
   
   useEffect(() => {
         setFoundSavedMovies(savedMovies)
-  },[])
+  },[savedMovies])
     
   // useEffect(()=> {
   //       if(isCheckboxActive) {

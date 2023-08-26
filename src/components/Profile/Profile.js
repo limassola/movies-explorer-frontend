@@ -6,9 +6,10 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
+import InfoToolTip from '../InfoTooltip/InfoTooltip';
 
 
-function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName }) {
+function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted }) {
   const [isNameChanged, setNameChanged] = React.useState(false);
   const [isEmailChanged, setEmailChanged] = React.useState(false);
   const [isNameValid, setNameValid] = React.useState(true);
@@ -16,34 +17,43 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
   const [isAllowed, setAllowed] = React.useState(false);
   const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInfoToolTipOpen, setInfoToolTipOpen] = React.useState(false);
   const handleNameChange = (evt) => {
     setCurrentUserName(evt.target.value);
-      setNameValid(evt.target.value.length>1 && evt.target.value.length<31);
+    setNameValid(evt.target.value.length>1 && evt.target.value.length<31);
   }
   const handleEmailChange = (evt) => {
     setCurrentUserEmail(evt.target.value);
-      setEmailValid(validator.isEmail(evt.target.value));
+    setEmailValid(validator.isEmail(evt.target.value));
   }
   useEffect(()=>{
       if (currentUser) {
-        setEmailChanged(!(currentEmail===currentUser.email))
+        setEmailChanged(!(currentEmail===currentUser.email));
+        setNameChanged(!(currentName===currentUser.name));
+        
       }
-  },[currentEmail, currentUser])
+  },[currentEmail, currentName, currentUser])
 
-  useEffect(()=>{
-    if (currentUser) {
-      setNameChanged(!(currentName===currentUser.name))
+  useEffect(()=> {
+    if (isEmailConflicted) {
+      setCurrentUserEmail(currentUser.email)
+      setCurrentUserName(currentUser.name)
+        setUpdateSucceed(false);
     }
-      
-  },[currentName, currentUser])
-  
+    else {
+        setUpdateSucceed(true)
+    }
+},[isEmailConflicted, isUpdateSucceed])
+
   const handleUpdate = (e) => {
       e.preventDefault();
       if (isAllowed){
           onUpdateUser();
           setUpdateSucceed(true);
+          setInfoToolTipOpen(true)
       } else {
           setUpdateSucceed(false);
+          setInfoToolTipOpen(false);
       }
       setAllowed(false);
   }
@@ -60,6 +70,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
     // Не забыть добавить функционал очищения локального хранилища
   return (
     <>
+    <InfoToolTip isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen}/>
     <header>
         <Header>
             <nav className='header__nav'>
@@ -76,7 +87,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
         {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
         <section>
             <div className="profile">
-                <h1 className="profile__title">Привет, {currentName}!</h1>
+                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form className="profile__form">
           <div className="profile__info">
             <div className="profile__item">

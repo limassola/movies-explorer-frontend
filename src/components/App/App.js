@@ -18,6 +18,7 @@ function App() {
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [currentUserName, setCurrentUserName] = useState('');
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isEmailConflicted, setEmailConflicted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -112,11 +113,17 @@ function App() {
     mainApi
       .updateUserInfo(currentUserName, currentUserEmail, localStorage.getItem('jwt'))
       .then((data)=>{
-        setCurrentUser(data.user);
-        setCurrentUserEmail(data.user.email);
-        setCurrentUserName(data.user.name)
+        setEmailConflicted(false);
+        setCurrentUser(data);
+        setCurrentUserEmail(data.email);
+        setCurrentUserName(data.name)
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        if (err === "Что-то пошло не так: 409") {
+          setEmailConflicted(true);
+        }
+        console.log(err)
+      });
   }
 
   return (
@@ -126,7 +133,7 @@ function App() {
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
         <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
-        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser}/>}/>
+        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted}/>}/>
         <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login onSubmit={signIn}/>}/>
         <Route path='*' element={<NotFoundPage/>}/>

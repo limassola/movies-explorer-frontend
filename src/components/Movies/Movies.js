@@ -14,13 +14,14 @@ function Movies({onSaveMovie, savedMovies}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
-  const [shortFilmsOnly, setShortFilmsOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const storedQuery = localStorage.getItem('movieSearchQuery');
   const storedShortFilms = JSON.parse(localStorage.getItem('movieShortFilms'));
   const storedResults = JSON.parse(localStorage.getItem('movieResults'));
+  const initialShortFilmState = storedShortFilms !== null ? storedShortFilms : false;
+  const [shortFilmsOnly, setShortFilmsOnly] = useState(initialShortFilmState);
 
 
   const handleSearch = (searchQuery) => {
@@ -32,8 +33,11 @@ function Movies({onSaveMovie, savedMovies}) {
 
   const handleShortFilmsToggle = () => {
     setShortFilmsOnly(!shortFilmsOnly);
-    localStorage.setItem('movieShortFilms', JSON.stringify(shortFilmsOnly));
   }
+
+  useEffect(() => {
+    localStorage.setItem('movieShortFilms', JSON.stringify(shortFilmsOnly));
+  }, [shortFilmsOnly])
 
   useEffect(() => {
     
