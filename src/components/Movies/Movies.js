@@ -10,7 +10,7 @@ import moviesApi from '../../utils/MoviesApi';
 import { filterMovies } from '../../utils/MovieUtils';
 import Preloader from '../Preloader/Preloader';
 
-function Movies({onSaveMovie, savedMovies}) {
+function Movies({onSaveMovie, savedMovies, isSaved}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
@@ -114,7 +114,7 @@ function Movies({onSaveMovie, savedMovies}) {
               ) : filteredMovies.length === 0 ? (
                 <p className="movies__not-found">Ничего не найдено</p>
               ) : (
-                <MoviesCardList movies={filteredMovies} isSavedPage={false} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>
+                <MoviesCardList movies={filteredMovies} isSavedPage={false} onSaveMovie={onSaveMovie} savedMovies={savedMovies} isSaved={isSaved}/>
 )}
           </section>
         </main>

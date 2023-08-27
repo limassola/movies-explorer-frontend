@@ -9,7 +9,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import mainApi from '../../utils/MainApi';
 import { filterMovies } from '../../utils/MovieUtils';
 
-function SavedMovies({onSaveMovie, savedMovies}) {
+function SavedMovies({onSaveMovie, savedMovies, isSaved}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [foundSavedMovies, setFoundSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
@@ -87,7 +87,7 @@ function SavedMovies({onSaveMovie, savedMovies}) {
             <Search isSavedPage={true} setShortFilmChecked={onCheckboxClick} handleSearch={handleSearch}/>
           </section>
           <section>
-            <MoviesCardList onSaveMovie={onSaveMovie}  savedMovies={filteredMovies} isSavedPage={true} movies={filteredSavedMovies}/>
+            <MoviesCardList onSaveMovie={onSaveMovie}  savedMovies={filteredMovies} isSavedPage={true} movies={filteredSavedMovies} isSaved={isSaved}/>
           </section>
         </main>
         <footer>
