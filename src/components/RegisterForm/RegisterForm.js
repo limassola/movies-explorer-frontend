@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg'
 import './RegisterForm.css';
 import mainApi from "../../utils/MainApi";
 
-function RegisterForm({onSubmit}) {
+function RegisterForm({onSubmit, isSubmitting}) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -128,7 +128,7 @@ function RegisterForm({onSubmit}) {
             />
             {passwordError && <p className="form__error">{passwordError}</p>}
         </label>
-        <button type="submit" disabled={!isFormValid} className={`${isFormValid ? 'form__button' : 'form__button_disabled'}`} onClick={handleRegister}>Зарегистрироваться</button>
+        <button type="submit" disabled={!isFormValid && isSubmitting} className={`${isFormValid ? 'form__button' : 'form__button_disabled'}`} onClick={handleRegister}>Зарегистрироваться</button>
     </form>
   );
 }

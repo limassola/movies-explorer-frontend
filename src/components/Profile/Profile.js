@@ -9,7 +9,7 @@ import mainApi from '../../utils/MainApi';
 import InfoToolTip from '../InfoTooltip/InfoTooltip';
 
 
-function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted }) {
+function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted, userUpdated }) {
   const [isNameChanged, setNameChanged] = React.useState(false);
   const [isEmailChanged, setEmailChanged] = React.useState(false);
   const [isNameValid, setNameValid] = React.useState(true);
@@ -38,7 +38,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
     if (isEmailConflicted) {
       setCurrentUserEmail(currentUser.email)
       setCurrentUserName(currentUser.name)
-        setUpdateSucceed(false);
+      setUpdateSucceed(false);
     }
     else {
         setUpdateSucceed(true)
@@ -70,7 +70,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
     // Не забыть добавить функционал очищения локального хранилища
   return (
     <>
-    <InfoToolTip isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen}/>
+    <InfoToolTip isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated}/>
     <header>
         <Header>
             <nav className='header__nav'>

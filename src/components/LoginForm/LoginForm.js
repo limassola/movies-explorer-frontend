@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
 
-function LoginForm({onSubmit}) {
+function LoginForm({onSubmit, isSubmitting}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -101,7 +101,7 @@ function LoginForm({onSubmit}) {
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>
-        <button type="button" className={`${isFormValid ? 'login-form__button' : 'login-form__button_disabled'}`} onClick={handleLogin}>Войти</button>
+        <button type="button" disabled={!isFormValid && !isSubmitting} className={`${isFormValid ? 'login-form__button' : 'login-form__button_disabled'}`} onClick={handleLogin}>Войти</button>
     </form>
   );
 }

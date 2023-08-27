@@ -19,6 +19,8 @@ function App() {
   const [currentUserName, setCurrentUserName] = useState('');
   const [savedMovies, setSavedMovies] = useState([]);
   const [isEmailConflicted, setEmailConflicted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userUpdated, setUserUpdated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,6 +36,7 @@ function App() {
     if(localStorage.getItem('jwt')) {
         mainApi.getUserInfo(localStorage.getItem('jwt'))
       .then((data) => {
+        console.log(data)
         setCurrentUser(data);
         setCurrentUserEmail(data.email);
         setCurrentUserName(data.name)
@@ -51,6 +54,8 @@ function App() {
   }, [isLoggedIn]);
 
   const signUp = (name, email, password) => {
+    if(isSubmitting) {
+      setIsSubmitting(true)
     mainApi.signup(name, email, password)
     .then(() => {
       signIn({email, password})
@@ -60,10 +65,16 @@ function App() {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      setIsSubmitting(false)
     });
+    }
   }
 
   const signIn = ({email, password}) => {
+    if(!isSubmitting) {
+      setIsSubmitting(true)
     mainApi.signin({email, password})
     .then((data) => {
       localStorage.removeItem("jwt");
@@ -74,7 +85,11 @@ function App() {
     .then(() => {
       navigate('/movies', {replace:true})
     })
-    .catch(err=>console.log(err));    
+    .catch(err=>console.log(err))
+    .finally(() => {
+      setIsSubmitting(false)
+    }); 
+    }
   }
 
   const signOut = () => {
@@ -116,12 +131,11 @@ function App() {
         setEmailConflicted(false);
         setCurrentUser(data);
         setCurrentUserEmail(data.email);
-        setCurrentUserName(data.name)
+        setCurrentUserName(data.name);
+        setUserUpdated(true);
       })
       .catch((err) => {
-        if (err === "Что-то пошло не так: 409") {
-          setEmailConflicted(true);
-        }
+        setUserUpdated(false)
         console.log(err)
       });
   }
@@ -133,9 +147,9 @@ function App() {
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route path='/movies' element={<ProtectedRouteElement element={Movies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
         <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
-        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted}/>}/>
-        <Route path='/signup' element={<Register onSubmit={signUp}/>}/>
-        <Route path='/signin' element={<Login onSubmit={signIn}/>}/>
+        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated}/>}/>
+        <Route path='/signup' element={<Register isSubmitting={isSubmitting} onSubmit={signUp}/>}/>
+        <Route path='/signin' element={<Login isSubmitting={isSubmitting} onSubmit={signIn}/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
     </div>
