@@ -54,7 +54,7 @@ function App() {
   }, [isLoggedIn]);
 
   const signUp = (name, email, password) => {
-    if(isSubmitting) {
+    if(!isSubmitting) {
       setIsSubmitting(true)
     mainApi.signup(name, email, password)
     .then(() => {

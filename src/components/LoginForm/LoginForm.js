@@ -70,7 +70,7 @@ function LoginForm({onSubmit, isSubmitting}) {
   }
 
   return (
-    <form className="login-form">
+    <form className="login-form" disabled={!isSubmitting}>
         <Link className="login-form__link" to='/'>
           <img src={logo} alt='Логотип' className='login-form__logo'/>
         </Link>
@@ -101,7 +101,7 @@ function LoginForm({onSubmit, isSubmitting}) {
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>
-        <button type="button" disabled={!isFormValid && !isSubmitting} className={`${isFormValid ? 'login-form__button' : 'login-form__button_disabled'}`} onClick={handleLogin}>Войти</button>
+        <button type="button" disabled={!isFormValid || isSubmitting} className={`${isFormValid && !isSubmitting ? 'login-form__button' : 'login-form__button_disabled'}`} onClick={handleLogin}>Войти</button>
     </form>
   );
 }

@@ -12,7 +12,8 @@ function RegisterForm({onSubmit, isSubmitting}) {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false);
+
 
   const validateName = () => {
     if (!name) {
@@ -83,7 +84,7 @@ function RegisterForm({onSubmit, isSubmitting}) {
   }
 
   return (
-    <form className="form">
+    <form className="form" disabled={!isSubmitting}>
         <Link className="form__link" to='/'>
           <img src={logo} alt='Логотип' className='form__logo'/>
         </Link>
@@ -128,7 +129,7 @@ function RegisterForm({onSubmit, isSubmitting}) {
             />
             {passwordError && <p className="form__error">{passwordError}</p>}
         </label>
-        <button type="submit" disabled={!isFormValid && isSubmitting} className={`${isFormValid ? 'form__button' : 'form__button_disabled'}`} onClick={handleRegister}>Зарегистрироваться</button>
+        <button type="submit" disabled={!isFormValid || isSubmitting} className={`${isFormValid && !isSubmitting ? 'form__button' : 'form__button_disabled'}`} onClick={handleRegister}>Зарегистрироваться</button>
     </form>
   );
 }
