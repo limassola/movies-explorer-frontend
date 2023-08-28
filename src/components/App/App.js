@@ -37,7 +37,6 @@ function App() {
     if(localStorage.getItem('jwt')) {
         mainApi.getUserInfo(localStorage.getItem('jwt'))
       .then((data) => {
-        console.log(data)
         setCurrentUser(data);
         setCurrentUserEmail(data.email);
         setCurrentUserName(data.name)
@@ -109,6 +108,7 @@ function App() {
         .then(movie => {
           setSavedMovies(prevSavedMovies => [...prevSavedMovies, movie]);
           setSaved(true)
+          console.log('Фильм Сохранен')
         })
         .catch(err => console.log(err));
     } else {
@@ -119,6 +119,7 @@ function App() {
           .then(() => {
             setSavedMovies(prevSavedMovies => prevSavedMovies.filter((_, i) => i !== index));
             setSaved(false)
+            console.log('Фильм удален')
           })
           .catch(err => console.log(err));
       }
@@ -153,7 +154,8 @@ function App() {
         <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated}/>}/>
         <Route path='/signup' element={<Register isSubmitting={isSubmitting} onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login isSubmitting={isSubmitting} onSubmit={signIn}/>}/>
-        <Route path='*' element={<NotFoundPage/>}/>
+        <Route path='/404' element={<NotFoundPage/>}/>
+        <Route path='/*' element={<Navigate to='/404' replace />} />
       </Routes>
     </div>
     </CurrentUserContext.Provider>
