@@ -30,7 +30,7 @@ function MoviesCard({movie, isSavedPage, handleDeleteMovie, onSaveMovie, savedMo
     return(
         <div className="movies-card" onClick={onCardClick}>
             <img className="movies-card__image" src={isSavedPage ? movie.image : movie.image.url} alt={movie.nameRU}/>
-            {isSavedPage ? (<button onClick={handleSaveClick} type='button' className="movies-card__button movies-card__button_delete"></button>) : (<button type='button' onClick={handleSaveClick} className={`movies-card__button ${isSavedMovies ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSavedMovies ? null : "Сохранить"}</button>)}
+            {isSavedPage ? (<button onClick={handleSaveClick} type='button' className="movies-card__button movies-card__button_delete"></button>) : (<button type='button' onClick={handleSaveClick} className={`movies-card__button ${isSavedMovies || isSaved ? "movies-card__button_checkmark" : "movies-card__button_save"}`}>{isSavedMovies ? null : "Сохранить"}</button>)}
             <div className="movies-card__heading">
                 <h2 className="movies-card__title">{movie.nameRU}</h2>
                 <p className="movies-card__time">{hours}ч {minutes}м</p>

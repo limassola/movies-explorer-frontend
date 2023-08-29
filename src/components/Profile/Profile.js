@@ -6,10 +6,12 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import './Profile.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
-import InfoToolTip from '../InfoTooltip/InfoTooltip';
+import InfoToolTip from '../InfoTooltipSucces/InfoTooltipSucces';
+import InfoTooltipSucces from '../InfoTooltipSucces/InfoTooltipSucces';
+import InfoTooltipError from '../InfoTooltipError/InfoTooltipError';
 
 
-function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted, userUpdated }) {
+function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted, userUpdated, isInfoToolTipOpen, setInfoToolTipOpen }) {
   const [isNameChanged, setNameChanged] = React.useState(false);
   const [isEmailChanged, setEmailChanged] = React.useState(false);
   const [isNameValid, setNameValid] = React.useState(true);
@@ -17,7 +19,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
   const [isAllowed, setAllowed] = React.useState(false);
   const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isInfoToolTipOpen, setInfoToolTipOpen] = React.useState(false);
+  
   const handleNameChange = (evt) => {
     setCurrentUserName(evt.target.value);
     setNameValid(evt.target.value.length>1 && evt.target.value.length<31);
@@ -50,10 +52,10 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
       if (isAllowed){
           onUpdateUser();
           setUpdateSucceed(true);
-          setInfoToolTipOpen(true)
+          
       } else {
           setUpdateSucceed(false);
-          setInfoToolTipOpen(false);
+          
       }
       setAllowed(false);
   }
@@ -70,7 +72,7 @@ function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrent
     // Не забыть добавить функционал очищения локального хранилища
   return (
     <>
-    <InfoToolTip isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated}/>
+    {userUpdated ? <InfoTooltipSucces isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={true}/> : <InfoTooltipError isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={false}/>}
     <header>
         <Header>
             <nav className='header__nav'>

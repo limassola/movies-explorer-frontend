@@ -22,6 +22,7 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userUpdated, setUserUpdated] = useState(false);
   const [isSaved, setSaved] = useState(false);
+  const [isInfoToolTipOpen, setInfoToolTipOpen] = React.useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -141,7 +142,11 @@ function App() {
       .catch((err) => {
         setUserUpdated(false)
         console.log(err)
-      });
+        
+      })
+      .finally(() => {
+        setInfoToolTipOpen(true)
+      })
   }
 
   return (
@@ -151,7 +156,7 @@ function App() {
         <Route path='/' element={<Main isLoggedIn={isLoggedIn}/>}/>
         <Route path='/movies' element={<ProtectedRouteElement element={Movies} isSaved={isSaved} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
         <Route path='/saved-movies' element={<ProtectedRouteElement element={SavedMovies} isSaved={isSaved} loggedIn={isLoggedIn} onSaveMovie={onSaveMovie} savedMovies={savedMovies}/>}/>
-        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated}/>}/>
+        <Route path='/profile' element={<ProtectedRouteElement element={Profile} loggedIn={isLoggedIn} onSignOut={signOut} currentName={currentUserName} currentEmail={currentUserEmail} currentUser={currentUser} setCurrentUserEmail={setCurrentUserEmail} setCurrentUserName={setCurrentUserName} onUpdateUser={handleUpdateUser} isEmailConflicted={isEmailConflicted} userUpdated={userUpdated} isInfoToolTipOpen={isInfoToolTipOpen} setInfoToolTipOpen={setInfoToolTipOpen}/>}/>
         <Route path='/signup' element={<Register isSubmitting={isSubmitting} onSubmit={signUp}/>}/>
         <Route path='/signin' element={<Login isSubmitting={isSubmitting} onSubmit={signIn}/>}/>
         <Route path='/404' element={<NotFoundPage/>}/>
