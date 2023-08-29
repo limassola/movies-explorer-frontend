@@ -108,7 +108,6 @@ function App() {
         .saveMovie(nameRU, nameEN, country, director, duration, year, description, image, trailerLink, thumbnail, movieId, localStorage.getItem('jwt'))
         .then(movie => {
           setSavedMovies(prevSavedMovies => [...prevSavedMovies, movie]);
-          setSaved(true)
           console.log('Фильм Сохранен')
         })
         .catch(err => console.log(err));
@@ -119,7 +118,6 @@ function App() {
           .deleteMovie(savedMovies[index]._id, localStorage.getItem('jwt'))
           .then(() => {
             setSavedMovies(prevSavedMovies => prevSavedMovies.filter((_, i) => i !== index));
-            setSaved(false)
             console.log('Фильм удален')
           })
           .catch(err => console.log(err));
