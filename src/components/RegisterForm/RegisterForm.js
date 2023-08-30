@@ -1,44 +1,90 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import './RegisterForm.css';
+import mainApi from "../../utils/MainApi";
 
-function RegisterForm() {
+function RegisterForm({onSubmit, isSubmitting}) {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+
+
+  const validateName = () => {
+    if (!name) {
+      setNameError("Введите имя");
+      return false;
+    } else {
+      setNameError("");
+      return true;
+    }
+  }
+
+  const validateEmail = () => {
+    if (!email) {
+      setEmailError("Введите почту");
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Некорректный формат почты");
+      return false;
+    } else {
+      setEmailError("");
+      return true;
+    }
+  }
+
+  const validatePassword = () => {
+    if (!password) {
+      setPasswordError("Что-то пошло не так...");
+      return false;
+    } else if (password.length < 6) {
+      setPasswordError("Пароль должен содержать не менее 6 символов");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  }
+
+  const validateForm = () => {
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+
+    setIsFormValid(isNameValid && isEmailValid && isPasswordValid);
+  }
 
   const handleRegister = (e) => {
     // Валидация данных и обработка регистрации
     e.preventDefault()
-    if (!name) {
-      setNameError("Введите имя");
-    } else {
-      setNameError("");
-    }
-
-    if (!email) {
-      setEmailError("Введите почту");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setEmailError("Некорректный формат почты");
-    } else {
-      setEmailError("");
-    }
-
-    if (!password) {
-      setPasswordError("Что-то пошло не так...");
-    } else if (password.length < 6) {
-      setPasswordError("Пароль должен содержать не менее 6 символов");
-    } else {
-      setPasswordError("");
-    }
+    validateForm();
+    if (isFormValid) {
+      onSubmit(name, email, password);
+    };
   };
 
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    validateForm();
+  }
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    validateForm();
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    validateForm();
+  }
+
   return (
-    <form className="form">
+    <form className="form" disabled={!isSubmitting}>
         <Link className="form__link" to='/'>
           <img src={logo} alt='Логотип' className='form__logo'/>
         </Link>
@@ -49,7 +95,7 @@ function RegisterForm() {
             type="text"
             className="form__input"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             placeholder="Введите имя"
             minLength="2"
             maxLength="30"
@@ -63,7 +109,7 @@ function RegisterForm() {
             type="email"
             className="form__input"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             placeholder="Введите Email"
             required
             />
@@ -75,7 +121,7 @@ function RegisterForm() {
             type="password"
             className="form__input"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             placeholder="Введите пароль"
             required
             minLength="6"
@@ -83,7 +129,7 @@ function RegisterForm() {
             />
             {passwordError && <p className="form__error">{passwordError}</p>}
         </label>
-        <button type="submit" className="form__button" onClick={handleRegister}>Зарегистрироваться</button>
+        <button type="submit" disabled={!isFormValid || isSubmitting} className={`${isFormValid && !isSubmitting ? 'form__button' : 'form__button_disabled'}`} onClick={handleRegister}>Зарегистрироваться</button>
     </form>
   );
 }

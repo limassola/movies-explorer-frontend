@@ -1,30 +1,78 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
-// import Popup from "./Popup"; 
+import React, { useState, useContext, useEffect} from 'react';
+import validator from "validator";
+import { Link } from 'react-router-dom'; 
 import Header from "../Header/Header";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import './Profile.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import mainApi from '../../utils/MainApi';
+import InfoToolTip from '../InfoTooltipSucces/InfoTooltipSucces';
+import InfoTooltipSucces from '../InfoTooltipSucces/InfoTooltipSucces';
+import InfoTooltipError from '../InfoTooltipError/InfoTooltipError';
 
 
-function Profile({ user, onEditProfile, onSignOut }) {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+function Profile({ onSignOut, currentName, currentEmail, currentUser, setCurrentUserEmail, onUpdateUser, setCurrentUserName, isEmailConflicted, userUpdated, isInfoToolTipOpen, setInfoToolTipOpen }) {
+  const [isNameChanged, setNameChanged] = React.useState(false);
+  const [isEmailChanged, setEmailChanged] = React.useState(false);
+  const [isNameValid, setNameValid] = React.useState(true);
+  const [isEmailValid, setEmailValid] = React.useState(true);
+  const [isAllowed, setAllowed] = React.useState(false);
+  const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const handleNameChange = (evt) => {
+    setCurrentUserName(evt.target.value);
+    setNameValid(evt.target.value.length>1 && evt.target.value.length<31);
+  }
+  const handleEmailChange = (evt) => {
+    setCurrentUserEmail(evt.target.value);
+    setEmailValid(validator.isEmail(evt.target.value));
+  }
+  useEffect(()=>{
+      if (currentUser) {
+        setEmailChanged(!(currentEmail===currentUser.email));
+        setNameChanged(!(currentName===currentUser.name));
+        
+      }
+  },[currentEmail, currentName, currentUser])
 
-    const handleBurgerClick = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  useEffect(()=> {
+    if (isEmailConflicted) {
+      setCurrentUserEmail(currentUser.email)
+      setCurrentUserName(currentUser.name)
+      setUpdateSucceed(false);
+    }
+    else {
+        setUpdateSucceed(true)
+    }
+},[isEmailConflicted, isUpdateSucceed])
 
-    const [name, setName] = useState('Виталий');
-     const [email, setEmail] = useState('pochta@yandex.ru');
+  const handleUpdate = (e) => {
+      e.preventDefault();
+      if (isAllowed){
+          onUpdateUser();
+          setUpdateSucceed(true);
+          
+      } else {
+          setUpdateSucceed(false);
+          
+      }
+      setAllowed(false);
+  }
+  useEffect(()=>{
+      if ((isEmailChanged || isNameChanged) && isNameValid && isEmailValid) {
+          setAllowed(true)
+      } else setAllowed(false)
+  },[isEmailChanged, isNameChanged , isEmailValid, isNameValid]);
 
-    const handleNameChange = (e) => {
-    setName(e.target.value);
-    };
+  const handleBurgerClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+};
 
-    const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    };
+    // Не забыть добавить функционал очищения локального хранилища
   return (
     <>
+    {userUpdated ? <InfoTooltipSucces isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={true}/> : <InfoTooltipError isSucceed={isUpdateSucceed} isOpen={isInfoToolTipOpen} setOpen={setInfoToolTipOpen} isEmailConflicted={isEmailConflicted} userUpdated={false}/>}
     <header>
         <Header>
             <nav className='header__nav'>
@@ -41,7 +89,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
         {isMenuOpen ? <BurgerMenu closeMenu={handleBurgerClick} isSavedPage={false}/> : null}
         <section>
             <div className="profile">
-                <h1 className="profile__title">Привет, Виталий!</h1>
+                <h1 className="profile__title">Привет, {currentUser.name}!</h1>
                 <form className="profile__form">
           <div className="profile__info">
             <div className="profile__item">
@@ -49,7 +97,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
               <input
                 className="profile__input"
                 type="text"
-                value={name}
+                value={currentName}
                 onChange={handleNameChange}
                 placeholder='Введите имя'
                 minLength="2"
@@ -61,7 +109,7 @@ function Profile({ user, onEditProfile, onSignOut }) {
               <input
                 className="profile__input"
                 type="email"
-                value={email}
+                value={currentEmail}
                 onChange={handleEmailChange}
                 placeholder='Введите Email'
               />
@@ -70,8 +118,9 @@ function Profile({ user, onEditProfile, onSignOut }) {
           <div className="profile__container">
             <button
               type="button"
-              className="profile__button profile__button_type_popup"
-              onClick={onEditProfile}
+              className={`${isAllowed ? 'profile__button profile__button_type_popup' : ' profile__button_disbled'}`}
+              onClick={handleUpdate}
+              disabled={!isAllowed}
             >
               Редактировать
             </button>

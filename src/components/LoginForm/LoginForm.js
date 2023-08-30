@@ -1,36 +1,76 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import './LoginForm.css';
+import mainApi from "../../utils/MainApi";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
-function LoginForm() {
+
+function LoginForm({onSubmit, isSubmitting}) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  const handleLogin = () => {
-    // Валидация данных и обработка авторизации
+  const validateEmail = () => {
     if (!email) {
       setEmailError("Введите почту");
+      return false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       setEmailError("Некорректный формат почты");
+      return false;
     } else {
       setEmailError("");
+      return true;
     }
+  }
 
+  const validatePassword = () => {
     if (!password) {
-      setPasswordError("Введите пароль");
+      setPasswordError("Что-то пошло не так...");
+      return false;
     } else if (password.length < 6) {
       setPasswordError("Пароль должен содержать не менее 6 символов");
+      return false;
     } else {
       setPasswordError("");
+      return true;
+    }
+  }
+
+  const validateForm = () => {
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+
+    setIsFormValid(isEmailValid && isPasswordValid);
+  }
+
+  const handleLogin = (e) => {
+    // Валидация данных и обработка авторизации
+    e.preventDefault()
+    validateForm();
+
+    if(isFormValid) {
+      onSubmit({email, password})
     }
   };
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    validateForm();
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    validateForm();
+  }
+
   return (
-    <form className="login-form">
+    <form className="login-form" disabled={!isSubmitting}>
         <Link className="login-form__link" to='/'>
           <img src={logo} alt='Логотип' className='login-form__logo'/>
         </Link>
@@ -41,7 +81,7 @@ function LoginForm() {
             type="email"
             className="login-form__input"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             placeholder="Введите Email"
             required
             />
@@ -53,7 +93,7 @@ function LoginForm() {
             type="password"
             className="login-form__input"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             placeholder="Введите пароль"
             required
             minLength="6"
@@ -61,7 +101,7 @@ function LoginForm() {
             />
             {passwordError && <p className="login-form__error">{passwordError}</p>}
         </label>
-        <button type="button" className="login-form__button" onClick={handleLogin}>Войти</button>
+        <button type="button" disabled={!isFormValid || isSubmitting} className={`${isFormValid && !isSubmitting ? 'login-form__button' : 'login-form__button_disabled'}`} onClick={handleLogin}>Войти</button>
     </form>
   );
 }
